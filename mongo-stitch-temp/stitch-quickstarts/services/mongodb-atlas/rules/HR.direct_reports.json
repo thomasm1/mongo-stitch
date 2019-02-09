@@ -1,0 +1,39 @@
+{
+    "database": "HR",
+    "collection": "direct_reports",
+    "roles": [
+        {
+            "name": "isThisPerson",
+            "apply_when": {
+                "email": "%%user.data.email"
+            },
+            "read": true,
+            "insert": false,
+            "delete": false,
+            "additional_fields": {
+                "read": true
+            }
+        },
+        {
+            "name": "isManager",
+            "apply_when": {
+                "manager.email": "%%user.data.email"
+            },
+            "read": true,
+            "write": true,
+            "insert": true,
+            "delete": true,
+            "additional_fields": {
+                "write": true,
+                "read": true
+            }
+        }
+    ],
+    "schema": {
+        "properties": {
+            "_id": {
+                "bsonType": "objectId"
+            }
+        }
+    }
+}

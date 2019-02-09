@@ -1,0 +1,14 @@
+{
+  "name": "lambda-atlas-create-doc",
+  "version": "1.0.0",
+  "description": "lambda aws mongo db serverless",
+  "main": "app.js",
+  "scripts": {
+    "test": "karma conf"
+  },
+  "author": "thomas maestas",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^3.1.13"
+  }
+}

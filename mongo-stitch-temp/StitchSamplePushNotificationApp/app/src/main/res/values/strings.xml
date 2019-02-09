@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Stitch Sample Push Notification App</string>
+    <string name="subscribe_holidays">holidays</string>
+    <string name="subscribe_quotes">quotes</string>
+    <string name="subscribe_events">events</string>
+    <string name="btn_subscribe">Update Subscriptions</string>
+    <string name="stitch_client_app_id">TBD</string>
+    <string name="fcm_sender_id">TBD</string>
+    <string name="fcm_app_id">TBD</string>
+</resources>

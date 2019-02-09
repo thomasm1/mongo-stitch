@@ -1,0 +1,22 @@
+{
+    "database": "quickstart",
+    "collection": "messages",
+    "roles": [
+        {
+            "name": "default",
+            "apply_when": {
+                "%%true": true
+            },
+            "read": true,
+            "write": true,
+            "insert": {
+                "%%true": true
+            },
+            "delete": {
+                "%%true": true
+            },
+            "additional_fields": {}
+        }
+    ],
+    "schema": {}
+}
