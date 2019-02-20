@@ -99,3 +99,25 @@ Here are the specific configuration tasks you must make for each Lambda function
 ### AWS Step Functions
 
 Once you have successfully created and tested the 4 Lambda functions above, head over (or go back) to the [AWS Step Functions setup and code walkthrough](http://bit.ly/mdbawssf) for the last mile!
+
+###Mongo Shell CRUD cmds
+db.foo.findAndModify( {
+  query: <document>,
+  update: <boolean>, 
+  upsert: <boolean>,
+  remove: <boolean>,
+  new: <boolean>,
+  sort: <document>,
+  fields: <document> } );
+  
+#Update
+db.foo.update(query, update, options);
+
+#FIND 
+db.a.find()
+db.a.update({}, {$push: {things:4 }} );
+db.a.update({}, {$push: {things:4 }}, {multi:true });
+db.a.update({}, {$push: {things:45 }}, {multi:true });
+
+## Model of Storage Internals
+my Application 0x4e48 0x594F >>>Server Memory<<< >> Disk - Memory Mapped File 0x4e48 0x594F
