@@ -1,0 +1,67 @@
+<h3>Edit Blog Details</h3>
+
+<form class="form form-horizontal" id="edit-form" role="form">
+<!-- <div class="col1"> -->
+        <div class="form-group"> 
+                <code class="id">ID: {{blogEditor.currentBlog.blog_id}}</code> 
+                <br /><br />
+                <label for="blogTitle" class="col-sm-3 control-label">Name</label>
+                <div class="col-sm-4">
+                    <input ng-model="blogEditor.currentBlog.name" type="text" class="form-control" id="blogName"
+                        placeholder="Name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="blogAge" type="number" min="0" class="col-sm-3 control-label">Age</label>
+                <div class="col-sm-4">
+                    <input ng-model="blogEditor.currentBlog.age"  type="number" min="0" class="form-control" id="blogAge"
+                        placeholder="Age">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="blogGender" type="number" min="0" class="col-sm-3 control-label">Gender</label>
+                <div class="col-sm-4">
+                    <input ng-model="blogEditor.currentBlog.gender" type="text" class="form-control" id="blogGender"
+                        placeholder="Gender">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="blogAddress" class="col-sm-3 control-label">Address</label>
+                <div class="col-sm-4">
+                    <input ng-model="blogEditor.currentBlog.address" type="textarea" class="form-control" id="blogAddress"
+                        placeholder="Address">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="blogPublished" class="col-sm-3 control-label">Birthday</label>
+                <div class="col-sm-4">
+                    <input type="date" ng-model="blogEditor.currentBlog.dob" class="form-control" name="blogDob"
+                        value="1999-07-22" min="1950-01-01" max="2007-09-31" id="blogDob"> 
+                </div>
+            </div>
+</div>
+<!-- <div class="col2">
+        <div class="col1"> -->
+                <div class="form-group">
+                        <label for="blogEmail" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-4">
+                            <input ng-model="blogEditor.currentBlog.email" type="email" class="form-control" id="blogEmail"
+                                placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="blogHeight"   class="col-sm-3 control-label">Height</label>
+                        <div class="col-sm-4">
+                            <input type="textbox" ng-model="blogEditor.currentBlog.height" type="text" class="form-control" id="blogHeight"
+                                placeholder="Height">
+                        </div>
+                    </div>   
+<!-- </div> -->
+    <div class="form-group">
+        <div class="col-sm-offset-1 col-sm-5">  
+                <a href="#/">
+            <button class="btn btn-default" ng-click="reload()">Cancel</button> </a>
+            <button class="btn btn-default" ng-click="blogEditor.saveBlog()">Save</button>
+        </div>
+    </div>
+</form>

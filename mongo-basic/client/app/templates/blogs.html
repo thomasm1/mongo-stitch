@@ -1,0 +1,24 @@
+
+
+<h3 id="header2">Blog Listings</h3> 
+<code class="count" >
+        Total Blogs:   {{ blogs.summaryData.blogCount }}   
+</code>  
+    <ul>
+        <li ng-repeat="blog in blogs.allBlogs"> 
+            
+              <code>ID: {{blog.blog_id}}</code>&nbsp;&nbsp;Blog Name: 
+  <code class="home"> &nbsp;&nbsp;{{ blog.name }}</code>
+   <br />
+            <span class="pull-right"> 
+                <a id="editBtn" href="#/EditBlog/{{ blog.blog_id }}">Edit</a>&nbsp;&nbsp; | &nbsp;&nbsp;
+                <a href="" ng-click="blogs.deleteBlog(blog.blog_id)" href="">Delete</a></span>
+        </li>
+    </ul> 
+
+<div>
+</div>
+<span class="buttons">
+    <a id="addBtn" href="#/AddBlog">Add New Blog</a>&nbsp;&nbsp; | &nbsp;&nbsp;
+    <a href="#/EditBlog/{{ blogs.currentUser.lastBlogEdited.blog_id }}">Open Last Edited</a> 
+</span><br /><br /> 
