@@ -1,4 +1,5 @@
 const Blog = require('../models/blog');
+ 
 
 module.exports.create = function (req, res) {
     const blog = new Blog(req.body);

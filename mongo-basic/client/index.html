@@ -19,11 +19,22 @@
         <h1>There are {{blogs.length}} blogs</h1>
         <ul>
             <li ng-repeat="blog in blogs">
-                {{blog.name}}
+                ID: {{blog.blogID}}<br />
+                Title: {{blog.title}}<br />
+                Date: {{blog.date}}<br />
+                Category: {{blog.cat3}}<br />
+                Citation: {{blog.cite}}<br />
+
             </li>
             <form ng-submit="createBlog()">
-                <input type="text" placeholder="Blog Name" ng-model="blogName">
-                <button type="submit">Add</button> 
+                
+                <input type="number" min="0" placeholder="Blog ID" ng-model="blogID">     <!--  NEED type test!!-->
+                <input type="text" placeholder="Blog Name" ng-model="blogTitle">
+                <input type="text" placeholder="Blog Date" ng-model="blogDate">
+                <input type="text" placeholder="Blog Category" ng-model="blogCat3">
+                <input type="text" placeholder="Blog Citation" ng-model="blogCite">
+                <button type="submit">Add</button>  
+                
             </form>
         </ul>
     </div>

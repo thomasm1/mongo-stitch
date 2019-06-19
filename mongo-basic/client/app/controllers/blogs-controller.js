@@ -24,12 +24,25 @@ app.controller('blogsController', ['$scope', '$resource',
 
     $scope.createBlog = function () {
         const blog = new Blog();
-        blog.name = $scope.blogName;
+        blog.blogID = $scope.blogID; // NEED type test!!
+        blog.title = $scope.blogTitle;
+        blog.date = $scope.blogDate;
+        blog.cat3 = $scope.blogCat3;
+        blog.post = $scope.blogPost;
+        blog.cite = $scope.blogCite;
+
         blog.$save(function (result) {
             $scope.blogs.push(result);
-            $scope.blogName = '';
+            $scope.blogID = null
+            $scope.blogTitle = '';
+            $scope.blogDate = '';
+            $scope.blogCat3 = '';
+            $scope.blogPost = '';
+            $scope.blogCite = '';  
         });
+ 
     //  $scope.blogs.push({ name: $scope.blogName });
     //  $scope.blogName = '';
     }
+     
 }]); 
