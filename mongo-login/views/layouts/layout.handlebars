@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>TMM</title>
+	<link rel="stylesheet" href="/css/bootstrap.css" />
+	<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	<div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            {{#if user}}
+              <li role="presentation"><a href="/">Dashboard</a></li>
+              <li role="presentation"><a href="/users/logout">Logout</a></li>
+            {{else}}
+              <li role="presentation"><a href="/users/login">Login</a></li>
+              <li role="presentation"><a href="/users/register">Register</a></li>
+            {{/if}}
+          </ul>
+        </nav>
+        <img src="https://s3.amazonaws.com/tmm.net/img/TMM.jpg" width="150" alt="tmm logo" />
+        {{!-- <h3 class="text-muted"></h3> --}}
+      </div>
+
+
+      <div class="row">
+        <div class="col-lg-12">
+          {{#if success_msg}}
+            <div class="alert alert-success">{{success_msg}}</div>
+          {{/if}}
+
+          {{#if error_msg}}
+            <div class="alert alert-danger">{{error_msg}}</div>
+          {{/if}}
+
+          {{#if error}}
+            <div class="alert alert-danger">{{error}}</div>
+          {{/if}}
+          
+          {{{body}}}
+        </div>
+
+        
+      </div>
+
+      <footer class="footer">
+        	 
+<div class="card-block" id="footer">
+
+	<p>Copyright &copy; 2018 All Rights Reserved. &nbsp; | &nbsp;
+		<a href="http://www.thomasmaestas.net" title="Contact Information: thomasmaestas.net/">
+	  thomasmaestas.net</a>&nbsp; | &nbsp; 
+	   <img src="https://tmm-nov.s3.amazonaws.com/img/_png/paypal.PNG" alt="PayPal Emblem" height="
+	   15"  ></img>
+	   <a href="https://www.paypal.com/paypalme/ThomasMaestas" style="color:white;text-decoration:none;">
+	   &nbsp;
+	   Blog Support  Appreciated!</a> 
+	 </p>
+</div> 
+
+      </footer>
+
+    </div> <!-- /container -->
+</body>
+</html>

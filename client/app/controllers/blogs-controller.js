@@ -43,6 +43,13 @@ app.controller('blogsController', ['$scope', '$resource',
  
     //  $scope.blogs.push({ name: $scope.blogName });
     //  $scope.blogName = '';
+
     }
      
-}]); 
+}]);     
+
+app.filter('reverse', function() {
+  return function(items) {
+    return items.slice().reverse();
+  };
+});

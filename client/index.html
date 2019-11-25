@@ -1,47 +1,148 @@
 <!DOCTYPE html>
 <html ng-app="blogApp">
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>TM MongoDB</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
- 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" >
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" ></script>
 
- <link rel='stylesheet'  href='app/css/blog.css'> 
-  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link rel='stylesheet' href='app/css/blog.css'>
+
 </head>
-<body >
-    <div  ng-controller="blogsController">
-        <h1>There are {{blogs.length}} blogs</h1>
-        <ul>
-            <li ng-repeat="blog in blogs">
-                ID: {{blog.blogID}}<br />
-                Title: {{blog.title}}<br />
-                Date: {{blog.date}}<br />
-                Category: {{blog.cat3}}<br />
-                Citation: {{blog.cite}}<br />
 
-            </li>
+<body>
+
+    <div class="wrapper">
+        <header>
+            <h2 class="header-title">tmm mongo project</h2>
+        </header>
+        <div class="navigationDesktop">
+            <nav>
+                <ul>
+                    <li><a href="#">Programming</a>
+                        <ul>
+                            <li><a href="#">C++</a></li>
+                            <li><a href="#">C#</a></li>
+                            <li><a href="#">Java</a></li>
+                            <li><a href="#">Web Dev &raquo;</a>
+                                <ul>
+                                    <li><a href="#">Javascript</a></li>
+                                    <li><a href="#">PHP</a></li>
+                                    <li><a href="#">Ruby</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Python</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">OS</a>
+                        <ul>
+                            <li><a href="#">Windows</a></li>
+                            <li><a href="#">Macintosh</a></li>
+                            <li><a href="#">Linux</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Projects</a>
+                        <ul>
+                            <li><a href="#">Android</a></li>
+                            <li><a href="#">iOS</a></li>
+                            <li><a href="#">Web</a></li>
+                            <li><a href="#">Windows</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#menu">Input</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+
+        <div class="blogs" ng-controller="blogsController">
+            <hr>
+            <span class="entries-title pull-right">
+                <h3>Entries </h3>
+                <br />
+                <h4> Count: {{blogs.length}} </h4>
+            </span>
             <form ng-submit="createBlog()">
-                
-                <input type="number" min="0" placeholder="Blog ID" ng-model="blogID">     <!--  NEED type test!!-->
+                <input type="number" min="0" placeholder="Blog ID" ng-model="blogID">
+                <!--  NEED type test!!-->
                 <input type="text" placeholder="Blog Name" ng-model="blogTitle">
                 <input type="text" placeholder="Blog Date" ng-model="blogDate">
                 <input type="text" placeholder="Blog Category" ng-model="blogCat3">
-                <input type="text" placeholder="Blog Citation" ng-model="blogCite">
-                <button type="submit">Add</button>  
-                
+                <textarea placeholder="Blog Citation" ng-model="blogCite">Blog Citation</textarea>
+                <button class="pull-right" type="submit">Add</button>
             </form>
-        </ul>
+
+            <ul class="data-list">
+                <li ng-repeat="blog in blogs  | reverse ">
+
+                    Title: {{blog.title}} <span class="id-corner pull-right"> ID: {{blog.blogID}}</span><br />
+                    Date: {{blog.date}}<br />
+                    Category: {{blog.cat3}}<br />
+                    Citation: {{blog.cite}}<br />
+
+                </li>
+
+            </ul>
+
+            <footer>TMM &copy; 2019</footer>
+        </div>
+        <input type="checkbox" class="menucheck" id="menu" />
+        <label class="menuicon" for="menu">&#9776;</label>
+
+        <div class="navigationMobile">
+            <div class="item">
+                <input type="checkbox" id="item1">
+                <label for="item1">Programming</label>
+                <ul>
+                    <li><a href="#">C++</a></li>
+                    <li><a href="#">C#</a></li>
+                    <li><a href="#">Java</a></li>
+                    <li><a href="#">Javascript</a></li>
+                    <li><a href="#">PHP</a></li>
+                    <li><a href="#">Ruby</a></li>
+                    <li><a href="#">Python</a></li>
+                </ul>
+            </div>
+            <div class="item">
+                <input type="checkbox" id="item2">
+                <label for="item2">OS</label>
+                <ul>
+                    <li><a href="">Windows</a></li>
+                    <li><a href="">Macintosh</a></li>
+                    <li><a href="">Linux</a></li>
+                </ul>
+            </div>
+            <div class="item">
+                <input type="checkbox" id="item3">
+                <label for="item3">Project</label>
+                <ul>
+                    <li><a href="">Android</a></li>
+                    <li><a href="">iOS</a></li>
+                    <li><a href="">Web</a></li>
+                    <li><a href="">Windows</a></li>
+                </ul>
+            </div>
+            <div class="item">
+                <a class="itemlast" href="#menu">Input</a>
+            </div>
+        </div>
+
     </div>
-     
+
     <script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-resource.min.js'></script> 
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-resource.min.js'></script>
     <script src='/app/app.js'></script>
     <script src='/app/controllers/blogs-controller.js'></script>
+
+
 </body>
+
 </html>
