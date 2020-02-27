@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-import { Media } from './media';
+// const Media = require('./media');
 
 const Schema = mongoose.Schema;
 const userSchema = new Schema({
@@ -10,6 +10,6 @@ const userSchema = new Schema({
     lName: String,
     memberSince: String,
     groupType: String,
-    media: Media
+    // media: Media
 });
 module.exports = mongoose.model('user', userSchema, 'users');

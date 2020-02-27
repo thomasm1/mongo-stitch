@@ -3,12 +3,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const mediaSchema = new Schema({
-    id: number,
-    uniqueId: string,
-    character: string,
-    location: string,
-    thorinsCompany: string,
-    quote: string,
-
+    id: Number,
+    uniqueId: String,
+    character: String,
+    location: String,
+    thorinsCompany: String,
+    quote: String,
 });
-module.exports = mongoose.model('Media', mediaSchema, 'media');
+module.exports = mongoose.model('media', mediaSchema, 'media');

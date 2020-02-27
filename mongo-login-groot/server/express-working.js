@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const port = 8080; // 3000;
+const port = 8090; // 3000;
 /////////// USERS
 const users = [
   {
@@ -10,7 +10,7 @@ const users = [
     email: "thomasm1.maestas@gmail.com",
     memberSince: "02-04-2020",
     groupType: "Admin",
-    media: [ 
+    media: [
       {
         "id": 12,
         "uniqueId": "8bf37760-93fd-4f1b-b02c-473d319621ab",
@@ -18,7 +18,7 @@ const users = [
         "location": "Mount Gram",
         "thorinsCompany": "Bifur",
         "quote": "Where did you go to, if I may ask?' said Thorin to Gandalf as they rode along.  To look ahead,' said he.  And what brought you back in the nick of time?' Looking behind,' said he."
-      } 
+      }
     ],
   },
   {
@@ -107,7 +107,7 @@ app.get("/api/users", (req, res) => {
 });
 
 app.get("/api/users/:id", (req, res) => {
-  // To prevent the ID "0" we'll simply subtract by one. This way we can query for id = 2 which will serve us 1, etc. 
+  // To prevent the ID "0" we'll simply subtract by one. This way we can query for id = 2 which will serve us 1, etc.
   const idx = req.params.id - 1;
 
   if (!users[idx]) {
@@ -124,7 +124,7 @@ app.get("/api/groot", (req, res) => {
 });
 
 app.get("/api/groot/:id", (req, res) => {
-  // To prevent the ID "0" we'll simply subtract by one. This way we can query for id = 2 which will serve us 1, etc. 
+  // To prevent the ID "0" we'll simply subtract by one. This way we can query for id = 2 which will serve us 1, etc.
   const idx = req.params.id - 1;
 
   if (!groot[idx]) {
@@ -141,7 +141,7 @@ app.get("/api/media", (req, res) => {
 });
 
 app.get("/api/media/:id", (req, res) => {
-  // To prevent the ID "0" we'll simply subtract by one. This way we can query for id = 2 which will serve us 1, etc. 
+  // To prevent the ID "0" we'll simply subtract by one. This way we can query for id = 2 which will serve us 1, etc.
   const idx = req.params.id - 1;
 
   if (!media[idx]) {
