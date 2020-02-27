@@ -1,0 +1,45 @@
+<br />
+<h3>Friends of Groot Society</h3>
+<hr>
+
+<div class="containment" fxLayout="column" fxLayoutAlign="space-evenly center">
+
+  <div class="medium-list">
+    <div class="list-viewer-wrapper">
+      <div class="list-header-title">
+        <h3 class="page-title middle">Register</h3>
+      </div>
+
+      <form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && onRegisterSubmit()" novalidate>
+        <div class="form-container">
+          <mat-form-field>
+            <input id="fName" matInput formControlName="fName" placeholder="&nbsp;&nbsp;First Name" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.fName.errors }" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <input id="lName" matInput formControlName="lName" class="form-control"
+              placeholder="&nbsp;&nbsp;Last Name" />
+          </mat-form-field>
+          <mat-form-field>
+            <input id="email" matInput formControlName="email" class="form-control" placeholder="&nbsp;&nbsp;Email" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <input id="password" matInput formControlName="password" class="form-control"
+              placeholder="&nbsp;&nbsp;Password" [type]="hide ? 'password':'text'" />
+            <mat-icon class="visibility" matSuffix (click)="hide = !hide" ng-class="hide ? 'fas fa-eye' : 'far fa-eye-slash' "> 
+              <a>{{hide ? 'visibility' : 'visibility_off'}}</a> 
+            </mat-icon>
+          </mat-form-field>
+
+          <button mat-button type="submit" class="mat-raised-button mat-primary   register"
+            [disabled]="!registerForm.valid">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Register</button>
+          <a routerLink="/" class="btn btn-link"><small>Cancel</small></a>
+          <button mat-button routerLink="/login" class="btn btn-link"><small>Already registered?</small></button>
+        </div>
+      </form>
+    </div>
+  </div>
