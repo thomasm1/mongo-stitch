@@ -2,24 +2,27 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component'
-import { EventsComponent } from './events/events.component';
-import { SpecialEventsComponent } from './special-events/special-events.component';
-import { AuthGuard } from './auth.guard';
+import { EventsComponent } from './components/events/events.component';
+import { SpecialEventsComponent } from './components/special-events/special-events.component';
+import { CoinsComponent } from './components/coins/coins.component';
+import { MemberAltcoinsComponent } from './components/member-altcoins/member-altcoins.component';
+import { AuthGuard } from './services/auth.guard';
+
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/events',
+    redirectTo: '/coins',
     pathMatch: 'full'
   },
   {
-    path: 'events',
-    component: EventsComponent
+    path: 'coins',
+    component: CoinsComponent
   },
   {
-    path: 'special',
+    path: 'member-altcoins',
     canActivate: [AuthGuard],
-    component: SpecialEventsComponent
+    component: MemberAltcoinsComponent
   },
   {
     path: 'login',
