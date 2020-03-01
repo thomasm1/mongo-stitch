@@ -9,7 +9,7 @@ import { Router } from '@angular/router'
   styleUrls: ['./member-altcoins.component.css']
 })
 export class MemberAltcoinsComponent implements OnInit {
-  memberAltcoins= []
+  memberAltcoins = []
   constructor(private _coinService: CoinService, private _router: Router) { }
 
   ngOnInit() {

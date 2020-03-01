@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component'
-import { RegisterComponent } from './register/register.component'
-import { EventsComponent } from './components/events/events.component';
-import { SpecialEventsComponent } from './components/special-events/special-events.component';
+import { RegisterComponent } from './register/register.component' 
 import { CoinsComponent } from './components/coins/coins.component';
 import { MemberAltcoinsComponent } from './components/member-altcoins/member-altcoins.component';
 import { AuthGuard } from './services/auth.guard';

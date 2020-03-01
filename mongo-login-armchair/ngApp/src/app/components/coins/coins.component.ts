@@ -17,4 +17,4 @@ export class CoinsComponent implements OnInit {
         err => console.log(err)
       )
   }
-  }
+}

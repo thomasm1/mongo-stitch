@@ -1,3 +1,4 @@
+import { AuthGuard } from './services/auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -7,13 +8,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { EventsComponent } from './components/events/events.component';
-import { SpecialEventsComponent } from './components/special-events/special-events.component';
-import { AuthGuard } from './services/auth.guard';
-import { AuthService } from './services/auth.service';
-import { CoinService } from './services/coin.service';
-import { EventService } from './services/event.service';
+import { AuthService } from './services/auth.service'; 
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { CoinService } from './services/coin.service';
 import { CoinsComponent } from './components/coins/coins.component';
 import { MemberAltcoinsComponent } from './components/member-altcoins/member-altcoins.component';
 
@@ -23,8 +20,6 @@ import { MemberAltcoinsComponent } from './components/member-altcoins/member-alt
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    EventsComponent,
-    SpecialEventsComponent,
     CoinsComponent,
     MemberAltcoinsComponent
   ],
@@ -34,7 +29,7 @@ import { MemberAltcoinsComponent } from './components/member-altcoins/member-alt
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [AuthService, AuthGuard, EventService, CoinService,
+  providers: [AuthService, AuthGuard,  CoinService,
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
