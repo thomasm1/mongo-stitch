@@ -1,0 +1,1293 @@
+commit 95424dcd671aafce261b1a05464b974f7dd33d6d
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Wed Oct 30 05:16:34 2019 -0600
+
+    update model, started deletion/routing, etc
+
+ package-lock.json                                  | 5120 --------------------
+ server-mongo/client/css/bootstrap-grid.min.css     |    7 +
+ server-mongo/client/css/bootstrap-grid.min.css.map |    1 +
+ server-mongo/client/css/bootstrap.min.css          |    7 +
+ server-mongo/client/css/bootstrap.min.css.map      |    1 +
+ server-mongo/client/css/bootstrap.min.js           |    7 +
+ server-mongo/client/css/bootstrap.min.js.map       |    1 +
+ server-mongo/client/css/patient.css                |  101 +
+ server-mongo/client/index.html                     |   22 +-
+ .../client/js/controllers/AddPatientController.js  |   31 +
+ .../client/js/controllers/EditPatientController.js |  112 +
+ .../client/js/controllers/PatientsController.js    |   81 +
+ .../client/js/controllers/RegisterController.js    |    0
+ .../client/js/controllers/RegisteredController.js  |    0
+ .../js/controllers/patient-details-controller.js   |   25 +-
+ .../client/js/controllers/services/.DS_Store       |  Bin 0 -> 6148 bytes
+ .../js/controllers/services/PatientsResource.js    |   19 +
+ .../client/js/controllers/services/currentUser.js  |   36 +
+ .../client/js/controllers/services/dataService.js  |  264 +
+ .../js/controllers/services/dataService.spec.js    |   27 +
+ .../js/controllers/services/loggerService.js       |   27 +
+ .../services/patientLoggerInterceptor.js           |   37 +
+ .../client/js/controllers/services/service.js      |   58 +
+ .../client/js/controllers/services/service.spec.js |   72 +
+ server-mongo/client/templates/addPatient.html      |   66 +
+ server-mongo/client/templates/editPatient.html     |   67 +
+ server-mongo/client/templates/login.html           |   33 +
+ server-mongo/client/templates/patients.html        |   24 +
+ server-mongo/client/templates/register.html        |    0
+ server-mongo/server/data/patients.json             |   20 -
+ server-mongo/server/models/patient.js              |   10 +-
+ server-mongo/server/routes/api-patients.js         |  132 +
+ server-mongo/server/routes/index.js                |    9 +
+ server-mongo/server/routes/patients.js             |  132 +
+ server-mongo/server/views/error.jade               |    6 +
+ server-mongo/server/views/index.jade               |    5 +
+ server-mongo/server/views/layout.jade              |    7 +
+ server/data/patients.json                          |   12 +
+ 38 files changed, 1411 insertions(+), 5168 deletions(-)
+
+commit 151840be5667ac503783d60e894f98a12e9c849b
+Author: Thomas Maestas <thomasm1.maestas@gmail.com>
+Date:   Mon Jun 17 23:54:35 2019 -0600
+
+    removed 2nd mongo data; Added 4th API test
+
+ client/js/patients/PatientsController.js | 63 +-------------------------------
+ client/js/services/service.spec.js       | 28 ++++++--------
+ client/js/templates/login.html           | 37 +++----------------
+ server.js                                | 22 +----------
+ server/data/patients.json                | 24 +-----------
+ 5 files changed, 20 insertions(+), 154 deletions(-)
+
+commit 9617362e68a5be1e996b2ddf3564c7575fe554bc
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Thu Jun 6 21:28:08 2019 -0600
+
+    added mongo version to server-mongo
+
+ server-mongo/{README (2).md => client/README.md}   |    0
+ server-mongo/client/SpecRunner.html                |   30 +
+ .../client/{index-mongo.html => index.html}        |   73 +-
+ server-mongo/client/jasmine-master/.editorconfig   |   16 +
+ server-mongo/client/jasmine-master/.gitattributes  |    1 +
+ .../client/jasmine-master/.github/CONTRIBUTING.md  |  143 +
+ .../jasmine-master/.github/ISSUE_TEMPLATE.md       |   44 +
+ .../.github/PULL_REQUEST_TEMPLATE.md               |   30 +
+ server-mongo/client/jasmine-master/.gitignore      |   26 +
+ server-mongo/client/jasmine-master/.gitmodules     |    3 +
+ server-mongo/client/jasmine-master/.npmignore      |   29 +
+ server-mongo/client/jasmine-master/.rspec          |    1 +
+ server-mongo/client/jasmine-master/.travis.yml     |   74 +
+ .../client/jasmine-master/CODE_OF_CONDUCT.md       |   46 +
+ server-mongo/client/jasmine-master/Gemfile         |    9 +
+ server-mongo/client/jasmine-master/Gruntfile.js    |   57 +
+ server-mongo/client/jasmine-master/MANIFEST.in     |    6 +
+ server-mongo/client/jasmine-master/MIT.LICENSE     |   20 +
+ server-mongo/client/jasmine-master/README.md       |   82 +
+ server-mongo/client/jasmine-master/RELEASE.md      |   74 +
+ server-mongo/client/jasmine-master/Rakefile        |   18 +
+ server-mongo/client/jasmine-master/bower.json      |   40 +
+ server-mongo/client/jasmine-master/ci.js           |  223 +
+ .../client/jasmine-master/grunt/config/compress.js |   57 +
+ .../client/jasmine-master/grunt/config/concat.js   |   56 +
+ .../jasmine-master/grunt/config/cssUrlEmbed.js     |    7 +
+ .../client/jasmine-master/grunt/config/sass.js     |   14 +
+ .../jasmine-master/grunt/tasks/build_standalone.js |   31 +
+ .../client/jasmine-master/grunt/tasks/version.js   |   14 +
+ .../grunt/templates/SpecRunner.html.jst            |   26 +
+ .../grunt/templates/licenseBanner.js.jst           |   22 +
+ .../jasmine-master/grunt/templates/version.rb.jst  |    9 +
+ .../client/jasmine-master/images/__init__.py       |    0
+ .../jasmine-master/images/jasmine-horizontal.png   |  Bin 0 -> 1714 bytes
+ .../jasmine-master/images/jasmine-horizontal.svg   |  102 +
+ .../jasmine-master/images/jasmine_favicon.png      |  Bin 0 -> 1486 bytes
+ .../client/jasmine-master/jasmine-core.gemspec     |   23 +
+ .../client/jasmine-master/lib/jasmine-core.js      |   37 +
+ .../client/jasmine-master/lib/jasmine-core.rb      |   53 +
+ .../jasmine-master/lib/jasmine-core/__init__.py    |    1 +
+ .../client/jasmine-master/lib/jasmine-core/boot.js |  158 +
+ .../jasmine-master/lib/jasmine-core/boot/boot.js   |  136 +
+ .../lib/jasmine-core/boot/node_boot.js             |   16 +
+ .../client/jasmine-master/lib/jasmine-core/core.py |   60 +
+ .../node_example/lib/jasmine_examples/Player.js    |   24 +
+ .../node_example/lib/jasmine_examples/Song.js      |    9 +
+ .../spec/helpers/jasmine_examples/SpecHelper.js    |   15 +
+ .../spec/jasmine_examples/PlayerSpec.js            |   60 +
+ .../lib/jasmine-core/example/spec/PlayerSpec.js    |   58 +
+ .../lib/jasmine-core/example/spec/SpecHelper.js    |   15 +
+ .../lib/jasmine-core/example/src/Player.js         |   22 +
+ .../lib/jasmine-core/example/src/Song.js           |    7 +
+ .../lib/jasmine-core/jasmine-html.js               |  805 ++
+ .../jasmine-master/lib/jasmine-core/jasmine.css    |  128 +
+ .../jasmine-master/lib/jasmine-core/jasmine.js     | 7750 ++++++++++++++++++++
+ .../jasmine-master/lib/jasmine-core/json2.js       |  489 ++
+ .../jasmine-master/lib/jasmine-core/node_boot.js   |   38 +
+ .../jasmine-master/lib/jasmine-core/version.rb     |    9 +
+ server-mongo/client/jasmine-master/package.json    |   81 +
+ .../client/jasmine-master/release_notes/1.3.0.md   |   22 +
+ .../client/jasmine-master/release_notes/1.3.1.md   |   12 +
+ .../client/jasmine-master/release_notes/2.0.1.md   |   70 +
+ .../client/jasmine-master/release_notes/2.0.2.md   |   25 +
+ .../client/jasmine-master/release_notes/2.1.0.md   |   83 +
+ .../client/jasmine-master/release_notes/2.1.1.md   |   14 +
+ .../client/jasmine-master/release_notes/2.1.2.md   |   14 +
+ .../client/jasmine-master/release_notes/2.1.3.md   |   21 +
+ .../client/jasmine-master/release_notes/2.2.0.md   |   98 +
+ .../client/jasmine-master/release_notes/2.2.1.md   |   15 +
+ .../client/jasmine-master/release_notes/2.3.0.md   |   81 +
+ .../client/jasmine-master/release_notes/2.3.1.md   |   14 +
+ .../client/jasmine-master/release_notes/2.3.2.md   |   14 +
+ .../client/jasmine-master/release_notes/2.3.3.md   |   14 +
+ .../client/jasmine-master/release_notes/2.3.4.md   |   22 +
+ .../client/jasmine-master/release_notes/2.4.0.md   |   91 +
+ .../client/jasmine-master/release_notes/2.4.1.md   |   11 +
+ .../client/jasmine-master/release_notes/2.5.0.md   |  116 +
+ .../client/jasmine-master/release_notes/2.5.1.md   |   19 +
+ .../client/jasmine-master/release_notes/2.5.2.md   |   14 +
+ .../client/jasmine-master/release_notes/2.6.0.md   |  108 +
+ .../client/jasmine-master/release_notes/2.6.1.md   |   31 +
+ .../client/jasmine-master/release_notes/2.6.2.md   |   23 +
+ .../client/jasmine-master/release_notes/2.6.3.md   |   17 +
+ .../client/jasmine-master/release_notes/2.6.4.md   |   17 +
+ .../client/jasmine-master/release_notes/2.7.0.md   |   61 +
+ .../client/jasmine-master/release_notes/2.8.0.md   |   52 +
+ .../client/jasmine-master/release_notes/2.9.0.md   |   99 +
+ .../client/jasmine-master/release_notes/2.9.1.md   |   15 +
+ .../client/jasmine-master/release_notes/2.99.md    |   19 +
+ .../client/jasmine-master/release_notes/20.md      |  179 +
+ .../client/jasmine-master/release_notes/3.0.md     |   91 +
+ .../client/jasmine-master/release_notes/3.1.0.md   |   54 +
+ .../client/jasmine-master/release_notes/3.2.0.md   |   83 +
+ .../client/jasmine-master/release_notes/3.2.1.md   |   11 +
+ .../client/jasmine-master/release_notes/3.3.0.md   |   47 +
+ .../client/jasmine-master/release_notes/3.4.0.md   |   49 +
+ .../jasmine-master/release_notes/older_versions.md |  110 +
+ .../client/jasmine-master/requirements.txt         |    1 +
+ server-mongo/client/jasmine-master/setup.py        |   44 +
+ .../spec/core/AsyncExpectationSpec.js              |  241 +
+ .../jasmine-master/spec/core/CallTrackerSpec.js    |  132 +
+ .../jasmine-master/spec/core/ClearStackSpec.js     |  166 +
+ .../client/jasmine-master/spec/core/ClockSpec.js   | 1040 +++
+ .../spec/core/DelayedFunctionSchedulerSpec.js      |  281 +
+ .../client/jasmine-master/spec/core/EnvSpec.js     |  298 +
+ .../spec/core/ExceptionFormatterSpec.js            |  198 +
+ .../jasmine-master/spec/core/ExceptionsSpec.js     |   51 +
+ .../spec/core/ExpectationFilterChainSpec.js        |  123 +
+ .../spec/core/ExpectationResultSpec.js             |   93 +
+ .../jasmine-master/spec/core/ExpectationSpec.js    |  686 ++
+ .../jasmine-master/spec/core/GlobalErrorsSpec.js   |  176 +
+ .../jasmine-master/spec/core/JsApiReporterSpec.js  |  256 +
+ .../jasmine-master/spec/core/MockDateSpec.js       |  204 +
+ .../jasmine-master/spec/core/PrettyPrintSpec.js    |  467 ++
+ .../jasmine-master/spec/core/QueueRunnerSpec.js    |  764 ++
+ .../spec/core/ReportDispatcherSpec.js              |  178 +
+ .../client/jasmine-master/spec/core/SpecSpec.js    |  492 ++
+ .../jasmine-master/spec/core/SpyRegistrySpec.js    |  576 ++
+ .../client/jasmine-master/spec/core/SpySpec.js     |  253 +
+ .../jasmine-master/spec/core/SpyStrategySpec.js    |  309 +
+ .../jasmine-master/spec/core/StackTraceSpec.js     |  216 +
+ .../client/jasmine-master/spec/core/SuiteSpec.js   |  141 +
+ .../client/jasmine-master/spec/core/TimerSpec.js   |   31 +
+ .../jasmine-master/spec/core/TreeProcessorSpec.js  |  915 +++
+ .../jasmine-master/spec/core/UserContextSpec.js    |   53 +
+ .../client/jasmine-master/spec/core/UtilSpec.js    |  205 +
+ .../spec/core/asymmetric_equality/AnySpec.js       |   91 +
+ .../spec/core/asymmetric_equality/AnythingSpec.js  |   76 +
+ .../asymmetric_equality/ArrayContainingSpec.js     |   52 +
+ .../ArrayWithExactContentsSpec.js                  |   47 +
+ .../spec/core/asymmetric_equality/EmptySpec.js     |   51 +
+ .../spec/core/asymmetric_equality/FalsySpec.js     |   38 +
+ .../spec/core/asymmetric_equality/NotEmptySpec.js  |   53 +
+ .../asymmetric_equality/ObjectContainingSpec.js    |   99 +
+ .../core/asymmetric_equality/StringMatchingSpec.js |   27 +
+ .../spec/core/asymmetric_equality/TruthySpec.js    |   63 +
+ .../client/jasmine-master/spec/core/baseSpec.js    |   33 +
+ .../jasmine-master/spec/core/formatErrorMsgSpec.js |   13 +
+ .../spec/core/integration/CustomMatchersSpec.js    |  200 +
+ .../core/integration/CustomSpyStrategiesSpec.js    |  138 +
+ .../spec/core/integration/EnvSpec.js               | 2524 +++++++
+ .../spec/core/integration/SpecRunningSpec.js       | 1128 +++
+ .../spec/core/matchers/DiffBuilderSpec.js          |   47 +
+ .../spec/core/matchers/NullDiffBuilderSpec.js      |   13 +
+ .../spec/core/matchers/ObjectPathSpec.js           |   43 +
+ .../spec/core/matchers/async/toBeRejectedSpec.js   |   23 +
+ .../matchers/async/toBeRejectedWithErrorSpec.js    |  141 +
+ .../core/matchers/async/toBeRejectedWithSpec.js    |   63 +
+ .../spec/core/matchers/async/toBeResolvedSpec.js   |   23 +
+ .../spec/core/matchers/async/toBeResolvedToSpec.js |   66 +
+ .../spec/core/matchers/matchersUtilSpec.js         |  645 ++
+ .../spec/core/matchers/nothingSpec.js              |    8 +
+ .../spec/core/matchers/toBeCloseToSpec.js          |  107 +
+ .../spec/core/matchers/toBeDefinedSpec.js          |   18 +
+ .../spec/core/matchers/toBeFalseSpec.js            |   25 +
+ .../spec/core/matchers/toBeFalsySpec.js            |   38 +
+ .../core/matchers/toBeGreaterThanOrEqualSpec.js    |   29 +
+ .../spec/core/matchers/toBeGreaterThanSpec.js      |   20 +
+ .../spec/core/matchers/toBeInstanceOfSpec.js       |  228 +
+ .../spec/core/matchers/toBeLessThanOrEqualSpec.js  |   29 +
+ .../spec/core/matchers/toBeLessThanSpec.js         |   20 +
+ .../spec/core/matchers/toBeNaNSpec.js              |   37 +
+ .../spec/core/matchers/toBeNegativeInfinitySpec.js |   31 +
+ .../spec/core/matchers/toBeNullSpec.js             |   17 +
+ .../spec/core/matchers/toBePositiveInfinitySpec.js |   31 +
+ .../jasmine-master/spec/core/matchers/toBeSpec.js  |   56 +
+ .../spec/core/matchers/toBeTrueSpec.js             |   17 +
+ .../spec/core/matchers/toBeTruthySpec.js           |   38 +
+ .../spec/core/matchers/toBeUndefinedSpec.js        |   18 +
+ .../spec/core/matchers/toContainSpec.js            |   26 +
+ .../spec/core/matchers/toEqualSpec.js              |  938 +++
+ .../core/matchers/toHaveBeenCalledBeforeSpec.js    |   99 +
+ .../spec/core/matchers/toHaveBeenCalledSpec.js     |   47 +
+ .../core/matchers/toHaveBeenCalledTimesSpec.js     |   86 +
+ .../spec/core/matchers/toHaveBeenCalledWithSpec.js |   67 +
+ .../spec/core/matchers/toHaveClassSpec.js          |   61 +
+ .../spec/core/matchers/toMatchSpec.js              |   43 +
+ .../spec/core/matchers/toThrowErrorSpec.js         |  315 +
+ .../spec/core/matchers/toThrowMatchingSpec.js      |   73 +
+ .../spec/core/matchers/toThrowSpec.js              |  100 +
+ .../jasmine-master/spec/helpers/BrowserFlags.js    |   16 +
+ .../jasmine-master/spec/helpers/asyncAwait.js      |   26 +
+ .../jasmine-master/spec/helpers/checkForMap.js     |   46 +
+ .../jasmine-master/spec/helpers/checkForSet.js     |   50 +
+ .../jasmine-master/spec/helpers/checkForSymbol.js  |   27 +
+ .../spec/helpers/checkForTypedArrays.js            |   23 +
+ .../spec/helpers/defineJasmineUnderTest.js         |    6 +
+ .../spec/helpers/integrationMatchers.js            |   57 +
+ .../spec/helpers/nodeDefineJasmineUnderTest.js     |   28 +
+ .../client/jasmine-master/spec/helpers/promises.js |    7 +
+ .../jasmine-master/spec/html/HtmlReporterSpec.js   | 1566 ++++
+ .../jasmine-master/spec/html/HtmlSpecFilterSpec.js |   19 +
+ .../jasmine-master/spec/html/MatchersHtmlSpec.js   |   36 +
+ .../spec/html/PrettyPrintHtmlSpec.js               |   43 +
+ .../jasmine-master/spec/html/QueryStringSpec.js    |   80 +
+ .../jasmine-master/spec/html/ResultsNodeSpec.js    |   62 +
+ .../spec/html/SpyRegistryHtmlSpec.js               |   41 +
+ .../support/jasmine_selenium_runner.yml            |   17 +
+ .../spec/npmPackage/npmPackageSpec.js              |  102 +
+ .../spec/performance/large_object_test.js          |   34 +
+ .../spec/performance/performance_test.js           |   10 +
+ .../jasmine-master/spec/support/index.html.ejs     |   12 +
+ .../spec/support/jasmine-performance.json          |   10 +
+ .../spec/support/jasmine-performance.yml           |   10 +
+ .../jasmine-master/spec/support/jasmine.json       |   18 +
+ .../client/jasmine-master/spec/support/jasmine.yml |   35 +
+ .../jasmine-master/spec/support/jasmine_helper.rb  |    3 +
+ .../client/jasmine-master/src/core/CallTracker.js  |  113 +
+ .../client/jasmine-master/src/core/ClearStack.js   |   69 +
+ .../client/jasmine-master/src/core/Clock.js        |  223 +
+ .../src/core/DelayedFunctionScheduler.js           |  178 +
+ server-mongo/client/jasmine-master/src/core/Env.js | 1074 +++
+ .../jasmine-master/src/core/ExceptionFormatter.js  |  101 +
+ .../client/jasmine-master/src/core/Expectation.js  |  195 +
+ .../src/core/ExpectationFilterChain.js             |   51 +
+ .../jasmine-master/src/core/ExpectationResult.js   |   65 +
+ .../client/jasmine-master/src/core/Expector.js     |   95 +
+ .../client/jasmine-master/src/core/GlobalErrors.js |   82 +
+ .../jasmine-master/src/core/JsApiReporter.js       |  123 +
+ .../client/jasmine-master/src/core/MockDate.js     |  105 +
+ .../client/jasmine-master/src/core/Order.js        |   45 +
+ .../jasmine-master/src/core/PrettyPrinter.js       |  359 +
+ .../client/jasmine-master/src/core/QueueRunner.js  |  210 +
+ .../jasmine-master/src/core/ReportDispatcher.js    |   74 +
+ .../client/jasmine-master/src/core/Spec.js         |  223 +
+ server-mongo/client/jasmine-master/src/core/Spy.js |  200 +
+ .../client/jasmine-master/src/core/SpyFactory.js   |   45 +
+ .../client/jasmine-master/src/core/SpyRegistry.js  |  213 +
+ .../client/jasmine-master/src/core/SpyStrategy.js  |  181 +
+ .../client/jasmine-master/src/core/StackTrace.js   |  124 +
+ .../client/jasmine-master/src/core/Suite.js        |  193 +
+ .../client/jasmine-master/src/core/Timer.js        |   33 +
+ .../jasmine-master/src/core/TreeProcessor.js       |  250 +
+ .../client/jasmine-master/src/core/UserContext.js  |   17 +
+ .../src/core/asymmetric_equality/Any.js            |   49 +
+ .../src/core/asymmetric_equality/Anything.js       |   14 +
+ .../core/asymmetric_equality/ArrayContaining.js    |   26 +
+ .../asymmetric_equality/ArrayWithExactContents.js  |   31 +
+ .../src/core/asymmetric_equality/Empty.js          |   25 +
+ .../src/core/asymmetric_equality/Falsy.js          |   14 +
+ .../src/core/asymmetric_equality/NotEmpty.js       |   26 +
+ .../core/asymmetric_equality/ObjectContaining.js   |   49 +
+ .../src/core/asymmetric_equality/StringMatching.js |   20 +
+ .../src/core/asymmetric_equality/Truthy.js         |   14 +
+ .../client/jasmine-master/src/core/base.js         |  276 +
+ .../client/jasmine-master/src/core/errors.js       |   10 +
+ .../jasmine-master/src/core/formatErrorMsg.js      |   11 +
+ .../src/core/matchers/DiffBuilder.js               |   33 +
+ .../src/core/matchers/NullDiffBuilder.js           |   10 +
+ .../jasmine-master/src/core/matchers/ObjectPath.js |   47 +
+ .../src/core/matchers/async/toBeRejected.js        |   22 +
+ .../src/core/matchers/async/toBeRejectedWith.js    |   46 +
+ .../core/matchers/async/toBeRejectedWithError.js   |   88 +
+ .../src/core/matchers/async/toBeResolved.js        |   22 +
+ .../src/core/matchers/async/toBeResolvedTo.js      |   46 +
+ .../src/core/matchers/matchersUtil.js              |  470 ++
+ .../jasmine-master/src/core/matchers/nothing.js    |   20 +
+ .../src/core/matchers/requireAsyncMatchers.js      |   17 +
+ .../src/core/matchers/requireMatchers.js           |   41 +
+ .../jasmine-master/src/core/matchers/toBe.js       |   29 +
+ .../src/core/matchers/toBeCloseTo.js               |   36 +
+ .../src/core/matchers/toBeDefined.js               |   20 +
+ .../jasmine-master/src/core/matchers/toBeFalse.js  |   20 +
+ .../jasmine-master/src/core/matchers/toBeFalsy.js  |   20 +
+ .../src/core/matchers/toBeGreaterThan.js           |   22 +
+ .../src/core/matchers/toBeGreaterThanOrEqual.js    |   21 +
+ .../src/core/matchers/toBeInstanceOf.js            |   45 +
+ .../src/core/matchers/toBeLessThan.js              |   22 +
+ .../src/core/matchers/toBeLessThanOrEqual.js       |   22 +
+ .../jasmine-master/src/core/matchers/toBeNaN.js    |   28 +
+ .../src/core/matchers/toBeNegativeInfinity.js      |   28 +
+ .../jasmine-master/src/core/matchers/toBeNull.js   |   20 +
+ .../src/core/matchers/toBePositiveInfinity.js      |   28 +
+ .../jasmine-master/src/core/matchers/toBeTrue.js   |   20 +
+ .../jasmine-master/src/core/matchers/toBeTruthy.js |   20 +
+ .../src/core/matchers/toBeUndefined.js             |   20 +
+ .../jasmine-master/src/core/matchers/toContain.js  |   25 +
+ .../jasmine-master/src/core/matchers/toEqual.js    |   31 +
+ .../src/core/matchers/toHaveBeenCalled.js          |   38 +
+ .../src/core/matchers/toHaveBeenCalledBefore.js    |   60 +
+ .../src/core/matchers/toHaveBeenCalledTimes.js     |   40 +
+ .../src/core/matchers/toHaveBeenCalledWith.js      |   43 +
+ .../src/core/matchers/toHaveClass.js               |   33 +
+ .../jasmine-master/src/core/matchers/toMatch.js    |   31 +
+ .../jasmine-master/src/core/matchers/toThrow.js    |   57 +
+ .../src/core/matchers/toThrowError.js              |  166 +
+ .../src/core/matchers/toThrowMatching.js           |   68 +
+ .../client/jasmine-master/src/core/requireCore.js  |   90 +
+ .../jasmine-master/src/core/requireInterface.js    |  334 +
+ .../client/jasmine-master/src/core/util.js         |  137 +
+ .../client/jasmine-master/src/html/HtmlReporter.js |  681 ++
+ .../jasmine-master/src/html/HtmlSpecFilter.js      |   15 +
+ .../client/jasmine-master/src/html/QueryString.js  |   54 +
+ .../client/jasmine-master/src/html/ResultsNode.js  |   23 +
+ .../jasmine-master/src/html/_HTMLReporter.scss     |  388 +
+ .../client/jasmine-master/src/html/jasmine.scss    |    1 +
+ .../client/jasmine-master/src/html/requireHtml.js  |    6 +
+ .../example_project_jasmine_tags.html.erb          |    3 +
+ .../jasmine-master/src/templates/version.js.erb    |    7 +
+ .../jasmine-master/src/templates/version.rb.erb    |    6 +
+ server-mongo/client/jasmine-master/src/version.js  |    3 +
+ .../client/jasmine-master/travis-core-script.sh    |   12 +
+ .../js/controllers/patient-details-controller.js   |   67 +
+ .../controllers/patient-details-controller.spec.js |    1 +
+ .../client/js/controllers/patients-controller.js   |   54 +-
+ server-mongo/client/lib/images/__init__.py         |    0
+ .../client/lib/images/jasmine-horizontal.png       |  Bin 0 -> 1714 bytes
+ .../client/lib/images/jasmine-horizontal.svg       |  102 +
+ server-mongo/client/lib/images/jasmine_favicon.png |  Bin 0 -> 1486 bytes
+ server-mongo/client/lib/jasmine-core.js            |   37 +
+ server-mongo/client/lib/jasmine-core.rb            |   53 +
+ server-mongo/client/lib/jasmine-core/__init__.py   |    1 +
+ server-mongo/client/lib/jasmine-core/boot.js       |  158 +
+ server-mongo/client/lib/jasmine-core/boot/boot.js  |  136 +
+ .../client/lib/jasmine-core/boot/node_boot.js      |   16 +
+ server-mongo/client/lib/jasmine-core/core.py       |   60 +
+ .../node_example/lib/jasmine_examples/Player.js    |   24 +
+ .../node_example/lib/jasmine_examples/Song.js      |    9 +
+ .../spec/helpers/jasmine_examples/SpecHelper.js    |   15 +
+ .../spec/jasmine_examples/PlayerSpec.js            |   60 +
+ .../lib/jasmine-core/example/spec/PlayerSpec.js    |   58 +
+ .../lib/jasmine-core/example/spec/SpecHelper.js    |   15 +
+ .../client/lib/jasmine-core/example/src/Player.js  |   22 +
+ .../client/lib/jasmine-core/example/src/Song.js    |    7 +
+ .../client/lib/jasmine-core/jasmine-html.js        |  805 ++
+ server-mongo/client/lib/jasmine-core/jasmine.css   |  128 +
+ server-mongo/client/lib/jasmine-core/jasmine.js    | 7750 ++++++++++++++++++++
+ server-mongo/client/lib/jasmine-core/json2.js      |  489 ++
+ server-mongo/client/lib/jasmine-core/node_boot.js  |   38 +
+ server-mongo/client/lib/jasmine-core/version.rb    |    9 +
+ .../client/lib/spec/core/AsyncExpectationSpec.js   |  241 +
+ .../client/lib/spec/core/CallTrackerSpec.js        |  132 +
+ .../client/lib/spec/core/ClearStackSpec.js         |  166 +
+ server-mongo/client/lib/spec/core/ClockSpec.js     | 1040 +++
+ .../lib/spec/core/DelayedFunctionSchedulerSpec.js  |  281 +
+ server-mongo/client/lib/spec/core/EnvSpec.js       |  298 +
+ .../client/lib/spec/core/ExceptionFormatterSpec.js |  198 +
+ .../client/lib/spec/core/ExceptionsSpec.js         |   51 +
+ .../lib/spec/core/ExpectationFilterChainSpec.js    |  123 +
+ .../client/lib/spec/core/ExpectationResultSpec.js  |   93 +
+ .../client/lib/spec/core/ExpectationSpec.js        |  686 ++
+ .../client/lib/spec/core/GlobalErrorsSpec.js       |  176 +
+ .../client/lib/spec/core/JsApiReporterSpec.js      |  256 +
+ server-mongo/client/lib/spec/core/MockDateSpec.js  |  204 +
+ .../client/lib/spec/core/PrettyPrintSpec.js        |  467 ++
+ .../client/lib/spec/core/QueueRunnerSpec.js        |  764 ++
+ .../client/lib/spec/core/ReportDispatcherSpec.js   |  178 +
+ server-mongo/client/lib/spec/core/SpecSpec.js      |  492 ++
+ .../client/lib/spec/core/SpyRegistrySpec.js        |  576 ++
+ server-mongo/client/lib/spec/core/SpySpec.js       |  253 +
+ .../client/lib/spec/core/SpyStrategySpec.js        |  309 +
+ .../client/lib/spec/core/StackTraceSpec.js         |  216 +
+ server-mongo/client/lib/spec/core/SuiteSpec.js     |  141 +
+ server-mongo/client/lib/spec/core/TimerSpec.js     |   31 +
+ .../client/lib/spec/core/TreeProcessorSpec.js      |  915 +++
+ .../client/lib/spec/core/UserContextSpec.js        |   53 +
+ server-mongo/client/lib/spec/core/UtilSpec.js      |  205 +
+ .../lib/spec/core/asymmetric_equality/AnySpec.js   |   91 +
+ .../spec/core/asymmetric_equality/AnythingSpec.js  |   76 +
+ .../asymmetric_equality/ArrayContainingSpec.js     |   52 +
+ .../ArrayWithExactContentsSpec.js                  |   47 +
+ .../lib/spec/core/asymmetric_equality/EmptySpec.js |   51 +
+ .../lib/spec/core/asymmetric_equality/FalsySpec.js |   38 +
+ .../spec/core/asymmetric_equality/NotEmptySpec.js  |   53 +
+ .../asymmetric_equality/ObjectContainingSpec.js    |   99 +
+ .../core/asymmetric_equality/StringMatchingSpec.js |   27 +
+ .../spec/core/asymmetric_equality/TruthySpec.js    |   63 +
+ server-mongo/client/lib/spec/core/baseSpec.js      |   33 +
+ .../client/lib/spec/core/formatErrorMsgSpec.js     |   13 +
+ .../spec/core/integration/CustomMatchersSpec.js    |  200 +
+ .../core/integration/CustomSpyStrategiesSpec.js    |  138 +
+ .../client/lib/spec/core/integration/EnvSpec.js    | 2524 +++++++
+ .../lib/spec/core/integration/SpecRunningSpec.js   | 1128 +++
+ .../lib/spec/core/matchers/DiffBuilderSpec.js      |   47 +
+ .../lib/spec/core/matchers/NullDiffBuilderSpec.js  |   13 +
+ .../lib/spec/core/matchers/ObjectPathSpec.js       |   43 +
+ .../spec/core/matchers/async/toBeRejectedSpec.js   |   23 +
+ .../matchers/async/toBeRejectedWithErrorSpec.js    |  141 +
+ .../core/matchers/async/toBeRejectedWithSpec.js    |   63 +
+ .../spec/core/matchers/async/toBeResolvedSpec.js   |   23 +
+ .../spec/core/matchers/async/toBeResolvedToSpec.js |   66 +
+ .../lib/spec/core/matchers/matchersUtilSpec.js     |  645 ++
+ .../client/lib/spec/core/matchers/nothingSpec.js   |    8 +
+ .../lib/spec/core/matchers/toBeCloseToSpec.js      |  107 +
+ .../lib/spec/core/matchers/toBeDefinedSpec.js      |   18 +
+ .../client/lib/spec/core/matchers/toBeFalseSpec.js |   25 +
+ .../client/lib/spec/core/matchers/toBeFalsySpec.js |   38 +
+ .../core/matchers/toBeGreaterThanOrEqualSpec.js    |   29 +
+ .../lib/spec/core/matchers/toBeGreaterThanSpec.js  |   20 +
+ .../lib/spec/core/matchers/toBeInstanceOfSpec.js   |  228 +
+ .../spec/core/matchers/toBeLessThanOrEqualSpec.js  |   29 +
+ .../lib/spec/core/matchers/toBeLessThanSpec.js     |   20 +
+ .../client/lib/spec/core/matchers/toBeNaNSpec.js   |   37 +
+ .../spec/core/matchers/toBeNegativeInfinitySpec.js |   31 +
+ .../client/lib/spec/core/matchers/toBeNullSpec.js  |   17 +
+ .../spec/core/matchers/toBePositiveInfinitySpec.js |   31 +
+ .../client/lib/spec/core/matchers/toBeSpec.js      |   56 +
+ .../client/lib/spec/core/matchers/toBeTrueSpec.js  |   17 +
+ .../lib/spec/core/matchers/toBeTruthySpec.js       |   38 +
+ .../lib/spec/core/matchers/toBeUndefinedSpec.js    |   18 +
+ .../client/lib/spec/core/matchers/toContainSpec.js |   26 +
+ .../client/lib/spec/core/matchers/toEqualSpec.js   |  938 +++
+ .../core/matchers/toHaveBeenCalledBeforeSpec.js    |   99 +
+ .../lib/spec/core/matchers/toHaveBeenCalledSpec.js |   47 +
+ .../core/matchers/toHaveBeenCalledTimesSpec.js     |   86 +
+ .../spec/core/matchers/toHaveBeenCalledWithSpec.js |   67 +
+ .../lib/spec/core/matchers/toHaveClassSpec.js      |   61 +
+ .../client/lib/spec/core/matchers/toMatchSpec.js   |   43 +
+ .../lib/spec/core/matchers/toThrowErrorSpec.js     |  315 +
+ .../lib/spec/core/matchers/toThrowMatchingSpec.js  |   73 +
+ .../client/lib/spec/core/matchers/toThrowSpec.js   |  100 +
+ .../client/lib/spec/helpers/BrowserFlags.js        |   16 +
+ server-mongo/client/lib/spec/helpers/asyncAwait.js |   26 +
+ .../client/lib/spec/helpers/checkForMap.js         |   46 +
+ .../client/lib/spec/helpers/checkForSet.js         |   50 +
+ .../client/lib/spec/helpers/checkForSymbol.js      |   27 +
+ .../client/lib/spec/helpers/checkForTypedArrays.js |   23 +
+ .../lib/spec/helpers/defineJasmineUnderTest.js     |    6 +
+ .../client/lib/spec/helpers/integrationMatchers.js |   57 +
+ .../lib/spec/helpers/nodeDefineJasmineUnderTest.js |   28 +
+ server-mongo/client/lib/spec/helpers/promises.js   |    7 +
+ .../client/lib/spec/html/HtmlReporterSpec.js       | 1566 ++++
+ .../client/lib/spec/html/HtmlSpecFilterSpec.js     |   19 +
+ .../client/lib/spec/html/MatchersHtmlSpec.js       |   36 +
+ .../client/lib/spec/html/PrettyPrintHtmlSpec.js    |   43 +
+ .../client/lib/spec/html/QueryStringSpec.js        |   80 +
+ .../client/lib/spec/html/ResultsNodeSpec.js        |   62 +
+ .../client/lib/spec/html/SpyRegistryHtmlSpec.js    |   41 +
+ .../support/jasmine_selenium_runner.yml            |   17 +
+ .../client/lib/spec/npmPackage/npmPackageSpec.js   |  102 +
+ .../lib/spec/performance/large_object_test.js      |   34 +
+ .../lib/spec/performance/performance_test.js       |   10 +
+ .../client/lib/spec/support/index.html.ejs         |   12 +
+ .../lib/spec/support/jasmine-performance.json      |   10 +
+ .../lib/spec/support/jasmine-performance.yml       |   10 +
+ server-mongo/client/lib/spec/support/jasmine.json  |   18 +
+ server-mongo/client/lib/spec/support/jasmine.yml   |   35 +
+ .../client/lib/spec/support/jasmine_helper.rb      |    3 +
+ server-mongo/server.js                             |    1 +
+ server/data/patients.json                          |   13 +-
+ 440 files changed, 70651 insertions(+), 72 deletions(-)
+
+commit a42dd95d1fa716391e957f1fbc4178aee5a4ecba
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Thu Jun 6 20:51:31 2019 -0600
+
+    include mongo server separately
+
+ server-mongo/.gitignore                            |   1 +
+ server-mongo/README (2).md                         |  29 +++++
+ server-mongo/README.md                             |   2 +
+ server-mongo/client/index-mongo.html               | 142 +++++++++++++++++++++
+ server-mongo/client/js/app.js                      |   7 +
+ .../client/js/controllers/patients-controller.js   |  59 +++++++++
+ .../js/controllers/patients-controller.spec.js     |  19 +++
+ server-mongo/karma.conf.js                         |  75 +++++++++++
+ server-mongo/package.json                          |  26 ++++
+ server-mongo/server.js                             |  22 ++++
+ .../controllers/patients-controller.js             |   0
+ server-mongo/{ => server}/data/patients.json       |   0
+ server-mongo/{ => server}/models/patient.js        |   0
+ server.js                                          |   6 +-
+ server/data/patients.json                          |   4 +
+ 15 files changed, 389 insertions(+), 3 deletions(-)
+
+commit 25fd1f89d72d100050f2ca7d64cb29decec04b38
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Thu Jun 6 00:13:31 2019 -0600
+
+    fixed #1 add-patient; still troubleshoot #2 add
+
+ client/js/patients/EditPatientController.js |  4 +-
+ client/js/patients/PatientsController.js    |  5 +-
+ client/js/templates/addPatient.html         | 91 +++++++++++++++--------------
+ client/js/templates/login.html              |  6 +-
+ server/data/patients.json                   | 32 ++++++++++
+ 5 files changed, 87 insertions(+), 51 deletions(-)
+
+commit d99c4fa6cd22898949568c1ea68c391fb4e7a225
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Wed Jun 5 23:04:29 2019 -0600
+
+    added mongo db; added admin/mgt view db toggle
+
+ client/css/patient.css                             |    5 +-
+ client/js/app.js                                   |    8 +-
+ client/js/patients/EditPatientController.js        |   68 +-
+ client/js/patients/PatientsController.js           |   67 +-
+ client/js/patients/RegisterController.js           |    0
+ client/js/patients/RegisteredController.js         |    0
+ client/js/templates/login.html                     |   51 +-
+ client/js/templates/register.html                  |    0
+ .../protractor/pageObjects/addEditPatient.spec.js  |    2 +-
+ karma.conf.js                                      |    2 +-
+ package-lock.json                                  | 5120 ++++++++++++++++++++
+ package.json                                       |    5 +
+ server-mongo/controllers/patients-controller.js    |   14 +
+ .../data/patients.json                             |   20 +-
+ server-mongo/models/patient.js                     |    5 +
+ server.js                                          |    9 +
+ server/controllers/patients-controller.js          |   14 +
+ server/data/patients.json                          |    6 +-
+ server/models/patient.js                           |    5 +
+ server/routes/api-patients.js                      |  132 +
+ 20 files changed, 5495 insertions(+), 38 deletions(-)
+
+commit 14ef7c9dbd276c6f1177a1f1149691135873a634
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Wed Jun 5 19:56:54 2019 -0600
+
+    added protractor page objects; start registration
+
+ client/js/templates/addPatient.html                |  4 +--
+ client/js/templates/login.html                     |  2 +-
+ client/protractor/conf.js                          | 10 ++++--
+ .../protractor/pageObjects/addEditPatient.spec.js  | 27 +++++++++++++++
+ .../pageObjects/addEditPatient0bjects.spec.js      | 27 +++++++++++++++
+ client/protractor/pageObjects/patient.spec.js      | 12 +++++++
+ .../protractor/pageObjects/patientObjects.spec.js  | 22 +++++++++++++
+ client/protractor/registration/register.spec.js    | 38 ++++++++++++++++++++++
+ client/protractor/registration/registered.spec.js  |  0
+ server/data/patients.json                          |  3 --
+ 10 files changed, 137 insertions(+), 8 deletions(-)
+
+commit 476e0792fed2a49537177bc21b09151d912380e1
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Tue Jun 4 19:22:08 2019 -0600
+
+    cli-side validation, all-patient details list
+
+ client/css/patient.css               | 17 ++++---
+ client/index.html                    |  1 +
+ client/js/templates/addPatient.html  | 87 +++++++++++++++++-------------------
+ client/js/templates/editPatient.html | 12 ++---
+ client/js/templates/login.html       |  3 +-
+ client/js/templates/patients.html    | 21 +++++----
+ server/data/patients.json            |  8 +++-
+ 7 files changed, 80 insertions(+), 69 deletions(-)
+
+commit d2ffc794a3d7c7be8417507c198695f1a5fdcfe9
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Tue Jun 4 18:48:39 2019 -0600
+
+    routing and login; all-patients details list
+
+ client/css/bootstrap-grid.min.css     |  7 +++++++
+ client/css/bootstrap-grid.min.css.map |  1 +
+ client/css/bootstrap.min.css          |  7 +++++++
+ client/css/bootstrap.min.css.map      |  1 +
+ client/css/bootstrap.min.js           |  7 +++++++
+ client/css/bootstrap.min.js.map       |  1 +
+ client/css/patient.css                | 18 ++++++++++++++++--
+ client/index.html                     | 12 +++++++-----
+ client/js/app.js                      |  5 +++++
+ client/js/templates/login.html        | 20 ++++++++++++++++++++
+ client/js/templates/patients.html     |  2 +-
+ server/data/patients.json             |  7 +++++++
+ 12 files changed, 80 insertions(+), 8 deletions(-)
+
+commit 73025cefd48a1d4bed2d264671baaf2f939f06ae
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Tue Jun 4 17:45:55 2019 -0600
+
+    full version before paring
+
+ client/js/app.js                               | 19 +++++++++++++++++--
+ client/js/patients/PatientsController.js       |  6 ++++--
+ client/js/services/PatientsResource.js         |  3 +++
+ client/js/services/currentUser.js              |  3 +++
+ client/js/services/dataService.js              |  4 ++++
+ client/js/services/loggerService.js            |  4 ++++
+ client/js/services/patientLoggerInterceptor.js |  6 +++++-
+ client/js/services/service.js                  |  3 +++
+ server/data/patients.json                      | 15 ---------------
+ 9 files changed, 43 insertions(+), 20 deletions(-)
+
+commit 9845809a6883d27616a08a004534e17dd98fb071
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Mon Jun 3 00:24:12 2019 -0600
+
+    Removal of unnecessary functionality
+
+ client/SpecRunner.html                        | 15 +----
+ client/css/patient.css                        | 50 ++++++++-------
+ client/index.html                             |  6 +-
+ client/js/app.js                              | 12 ++--
+ client/js/patients/PatientsController.js      |  6 +-
+ client/js/patients/PatientsController.spec.js | 90 +++++----------------------
+ client/js/services/PatientsResource.js        |  1 +
+ client/js/services/constantService.js         | 11 ----
+ client/js/services/constantService.spec.js    | 30 ---------
+ client/js/services/currentUser.js             |  2 +-
+ client/js/services/dataPatient.js             | 28 ---------
+ client/js/services/dataService.js             |  6 +-
+ client/js/services/service.js                 |  1 +
+ client/js/services/service.spec.js            |  2 +-
+ client/spec/Player.spec.js                    | 58 -----------------
+ client/spec/SpecHelper.js                     | 15 -----
+ client/spec/calculator.spec.js                | 32 ----------
+ client/src/Player.js                          | 22 -------
+ client/src/Song.js                            |  7 ---
+ client/src/calculator.js                      | 16 -----
+ server/data/patients.json                     |  8 +++
+ 21 files changed, 70 insertions(+), 348 deletions(-)
+
+commit e1069eb3c734e81852091c1ddd8349cbcaf88a1d
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Sun Jun 2 19:35:28 2019 -0600
+
+    8 protractor tests checking 3 controllers - still more tests to come
+
+ client/js/templates/patients.html                |  6 +-
+ client/protractor/conf.js                        |  4 +-
+ client/protractor/patients/patient.add.spec.js   | 56 +++++++++++++++++++
+ client/protractor/patients/patient.add.spec1.js  | 14 -----
+ client/protractor/patients/patient.edit.spec.js  | 26 +++++++++
+ client/protractor/patients/patient.edit.spec1.js | 55 -------------------
+ client/protractor/patients/patient.spec.js       | 70 ++++++++++++++----------
+ 7 files changed, 129 insertions(+), 102 deletions(-)
+
+commit dfe2a52a7067dae87c256d268c1cf032a9fbd927
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Sun Jun 2 11:57:02 2019 -0600
+
+    start on protractor/karma fixes and coverage
+
+ README.md                                          | 28 ++++++++---
+ client/SpecRunner.html                             |  2 +
+ client/index.html                                  |  2 +-
+ client/js/services/constantService.spec.js         | 30 ++++++++++++
+ client/js/templates/addPatient.html                |  2 +-
+ client/js/templates/patients.html                  |  6 +--
+ client/protractor/conf.js                          |  3 +-
+ .../{patient.add.spec.js => patient.add.spec1.js}  |  8 ++--
+ client/protractor/patients/patient.edit.spec.js    | 51 --------------------
+ client/protractor/patients/patient.edit.spec1.js   | 55 ++++++++++++++++++++++
+ client/protractor/patients/patient.spec.js         | 30 ++++++++++++
+ server.js                                          |  2 +-
+ 12 files changed, 150 insertions(+), 69 deletions(-)
+
+commit 38aa18b4fbee0be65f2ac649707647de0de5395b
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Sun Jun 2 00:04:05 2019 -0600
+
+    npm audit fix
+
+ package-lock.json | 4675 -----------------------------------------------------
+ 1 file changed, 4675 deletions(-)
+
+commit c81c7a2d0c87546c411513c4ebbfad3b37b3f240
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Sat Jun 1 23:52:25 2019 -0600
+
+    protractor tests, prep for page objects
+
+ client/protractor/conf.js                       |  8 +++--
+ client/protractor/patients/patient.add.spec.js  | 12 ++++++++
+ client/protractor/patients/patient.edit.spec.js | 41 ++++++++++++++++++++++---
+ 3 files changed, 55 insertions(+), 6 deletions(-)
+
+commit f1bc9bfeffeac9dc08f1a7c472da94dc7fee9c0d
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Sat Jun 1 22:24:21 2019 -0600
+
+    protractor patient.edit; controller unit test karma
+
+ client/SpecRunner.html                          |   17 +-
+ client/css/patient.css                          |   13 +-
+ client/index.html                               |    5 +-
+ client/js/app.js                                |    5 +-
+ client/js/patients/PatientsController.js        |   17 +-
+ client/js/patients/PatientsController.spec.js   |   82 ++
+ client/js/services/badgeService.js              |   28 -
+ client/js/services/currentUser.js               |   20 +-
+ client/js/services/dataPatient.js               |   28 +
+ client/js/services/dataService.js               |   98 +-
+ client/js/services/dataService.spec.js          |   27 +
+ client/js/services/service.js                   |   54 +
+ client/js/services/service.spec.js              |   78 ++
+ client/js/templates/patients.html               |    9 +-
+ client/protractor/conf.js                       |    9 +
+ client/protractor/patients/patient.edit.spec.js |   18 +
+ client/spec/Player.spec.js                      |   58 +
+ client/spec/SpecHelper.js                       |   15 +
+ client/spec/calculator.spec.js                  |   32 +
+ client/src/Player.js                            |   22 +
+ client/src/Song.js                              |    7 +
+ client/src/calculator.js                        |   16 +
+ karma.conf.js                                   |    4 +-
+ package-lock.json                               | 1337 +++++++++++------------
+ package.json                                    |   11 +-
+ server.js                                       |   14 +-
+ server/data/patients.json                       |   28 +-
+ server/data/readers.json                        |   20 -
+ server/routes/readers.js                        |  125 ---
+ 29 files changed, 1219 insertions(+), 978 deletions(-)
+
+commit 363116aff506afc4730e88a018699825d4a624c8
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Sat Jun 1 03:22:55 2019 -0600
+
+    fixed dataService bug
+
+ client/favicon.ico          | Bin 1406 -> 10466 bytes
+ client/js/app.js            |   6 ++++--
+ package-lock.json           |  18 ------------------
+ package.json                |   3 ---
+ server.js                   |   2 +-
+ server/data/patients.1.json |  32 ++++++++++++++++++++++++++++++++
+ server/data/patients.json   |  30 +++++++++++++++++-------------
+ server/views/layout.jade    |   1 +
+ 8 files changed, 55 insertions(+), 37 deletions(-)
+
+commit 465f2e5c9bb34a8772c82af94871d5fe6cfd7c70
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Sat Jun 1 03:03:50 2019 -0600
+
+    to patientTracker, added services, added testing env; protractor separated
+
+ .DS_Store                                          |  Bin 0 -> 8196 bytes
+ .gitignore                                         |    1 +
+ README.md                                          |   30 +
+ client/.DS_Store                                   |  Bin 0 -> 10244 bytes
+ client/README.md                                   |   29 +
+ client/SpecRunner.html                             |   30 +
+ client/css/patient.css                             |   70 +
+ client/favicon.ico                                 |  Bin 0 -> 1406 bytes
+ client/index.html                                  |   66 +-
+ client/jasmine-master/.editorconfig                |   16 +
+ client/jasmine-master/.gitattributes               |    1 +
+ client/jasmine-master/.github/CONTRIBUTING.md      |  143 +
+ client/jasmine-master/.github/ISSUE_TEMPLATE.md    |   44 +
+ .../.github/PULL_REQUEST_TEMPLATE.md               |   30 +
+ client/jasmine-master/.gitignore                   |   26 +
+ client/jasmine-master/.gitmodules                  |    3 +
+ client/jasmine-master/.npmignore                   |   29 +
+ client/jasmine-master/.rspec                       |    1 +
+ client/jasmine-master/.travis.yml                  |   74 +
+ client/jasmine-master/CODE_OF_CONDUCT.md           |   46 +
+ client/jasmine-master/Gemfile                      |    9 +
+ client/jasmine-master/Gruntfile.js                 |   57 +
+ client/jasmine-master/MANIFEST.in                  |    6 +
+ client/jasmine-master/MIT.LICENSE                  |   20 +
+ client/jasmine-master/README.md                    |   82 +
+ client/jasmine-master/RELEASE.md                   |   74 +
+ client/jasmine-master/Rakefile                     |   18 +
+ client/jasmine-master/bower.json                   |   40 +
+ client/jasmine-master/ci.js                        |  223 +
+ client/jasmine-master/grunt/config/compress.js     |   57 +
+ client/jasmine-master/grunt/config/concat.js       |   56 +
+ client/jasmine-master/grunt/config/cssUrlEmbed.js  |    7 +
+ client/jasmine-master/grunt/config/sass.js         |   14 +
+ .../jasmine-master/grunt/tasks/build_standalone.js |   31 +
+ client/jasmine-master/grunt/tasks/version.js       |   14 +
+ .../grunt/templates/SpecRunner.html.jst            |   26 +
+ .../grunt/templates/licenseBanner.js.jst           |   22 +
+ .../jasmine-master/grunt/templates/version.rb.jst  |    9 +
+ client/jasmine-master/images/__init__.py           |    0
+ .../jasmine-master/images/jasmine-horizontal.png   |  Bin 0 -> 1714 bytes
+ .../jasmine-master/images/jasmine-horizontal.svg   |  102 +
+ client/jasmine-master/images/jasmine_favicon.png   |  Bin 0 -> 1486 bytes
+ client/jasmine-master/jasmine-core.gemspec         |   23 +
+ client/jasmine-master/lib/jasmine-core.js          |   37 +
+ client/jasmine-master/lib/jasmine-core.rb          |   53 +
+ client/jasmine-master/lib/jasmine-core/__init__.py |    1 +
+ client/jasmine-master/lib/jasmine-core/boot.js     |  158 +
+ .../jasmine-master/lib/jasmine-core/boot/boot.js   |  136 +
+ .../lib/jasmine-core/boot/node_boot.js             |   16 +
+ client/jasmine-master/lib/jasmine-core/core.py     |   60 +
+ .../node_example/lib/jasmine_examples/Player.js    |   24 +
+ .../node_example/lib/jasmine_examples/Song.js      |    9 +
+ .../spec/helpers/jasmine_examples/SpecHelper.js    |   15 +
+ .../spec/jasmine_examples/PlayerSpec.js            |   60 +
+ .../lib/jasmine-core/example/spec/PlayerSpec.js    |   58 +
+ .../lib/jasmine-core/example/spec/SpecHelper.js    |   15 +
+ .../lib/jasmine-core/example/src/Player.js         |   22 +
+ .../lib/jasmine-core/example/src/Song.js           |    7 +
+ .../lib/jasmine-core/jasmine-html.js               |  805 ++
+ client/jasmine-master/lib/jasmine-core/jasmine.css |  128 +
+ client/jasmine-master/lib/jasmine-core/jasmine.js  | 7750 ++++++++++++++++++++
+ client/jasmine-master/lib/jasmine-core/json2.js    |  489 ++
+ .../jasmine-master/lib/jasmine-core/node_boot.js   |   38 +
+ client/jasmine-master/lib/jasmine-core/version.rb  |    9 +
+ client/jasmine-master/package.json                 |   81 +
+ client/jasmine-master/release_notes/1.3.0.md       |   22 +
+ client/jasmine-master/release_notes/1.3.1.md       |   12 +
+ client/jasmine-master/release_notes/2.0.1.md       |   70 +
+ client/jasmine-master/release_notes/2.0.2.md       |   25 +
+ client/jasmine-master/release_notes/2.1.0.md       |   83 +
+ client/jasmine-master/release_notes/2.1.1.md       |   14 +
+ client/jasmine-master/release_notes/2.1.2.md       |   14 +
+ client/jasmine-master/release_notes/2.1.3.md       |   21 +
+ client/jasmine-master/release_notes/2.2.0.md       |   98 +
+ client/jasmine-master/release_notes/2.2.1.md       |   15 +
+ client/jasmine-master/release_notes/2.3.0.md       |   81 +
+ client/jasmine-master/release_notes/2.3.1.md       |   14 +
+ client/jasmine-master/release_notes/2.3.2.md       |   14 +
+ client/jasmine-master/release_notes/2.3.3.md       |   14 +
+ client/jasmine-master/release_notes/2.3.4.md       |   22 +
+ client/jasmine-master/release_notes/2.4.0.md       |   91 +
+ client/jasmine-master/release_notes/2.4.1.md       |   11 +
+ client/jasmine-master/release_notes/2.5.0.md       |  116 +
+ client/jasmine-master/release_notes/2.5.1.md       |   19 +
+ client/jasmine-master/release_notes/2.5.2.md       |   14 +
+ client/jasmine-master/release_notes/2.6.0.md       |  108 +
+ client/jasmine-master/release_notes/2.6.1.md       |   31 +
+ client/jasmine-master/release_notes/2.6.2.md       |   23 +
+ client/jasmine-master/release_notes/2.6.3.md       |   17 +
+ client/jasmine-master/release_notes/2.6.4.md       |   17 +
+ client/jasmine-master/release_notes/2.7.0.md       |   61 +
+ client/jasmine-master/release_notes/2.8.0.md       |   52 +
+ client/jasmine-master/release_notes/2.9.0.md       |   99 +
+ client/jasmine-master/release_notes/2.9.1.md       |   15 +
+ client/jasmine-master/release_notes/2.99.md        |   19 +
+ client/jasmine-master/release_notes/20.md          |  179 +
+ client/jasmine-master/release_notes/3.0.md         |   91 +
+ client/jasmine-master/release_notes/3.1.0.md       |   54 +
+ client/jasmine-master/release_notes/3.2.0.md       |   83 +
+ client/jasmine-master/release_notes/3.2.1.md       |   11 +
+ client/jasmine-master/release_notes/3.3.0.md       |   47 +
+ client/jasmine-master/release_notes/3.4.0.md       |   49 +
+ .../jasmine-master/release_notes/older_versions.md |  110 +
+ client/jasmine-master/requirements.txt             |    1 +
+ client/jasmine-master/setup.py                     |   44 +
+ .../spec/core/AsyncExpectationSpec.js              |  241 +
+ client/jasmine-master/spec/core/CallTrackerSpec.js |  132 +
+ client/jasmine-master/spec/core/ClearStackSpec.js  |  166 +
+ client/jasmine-master/spec/core/ClockSpec.js       | 1040 +++
+ .../spec/core/DelayedFunctionSchedulerSpec.js      |  281 +
+ client/jasmine-master/spec/core/EnvSpec.js         |  298 +
+ .../spec/core/ExceptionFormatterSpec.js            |  198 +
+ client/jasmine-master/spec/core/ExceptionsSpec.js  |   51 +
+ .../spec/core/ExpectationFilterChainSpec.js        |  123 +
+ .../spec/core/ExpectationResultSpec.js             |   93 +
+ client/jasmine-master/spec/core/ExpectationSpec.js |  686 ++
+ .../jasmine-master/spec/core/GlobalErrorsSpec.js   |  176 +
+ .../jasmine-master/spec/core/JsApiReporterSpec.js  |  256 +
+ client/jasmine-master/spec/core/MockDateSpec.js    |  204 +
+ client/jasmine-master/spec/core/PrettyPrintSpec.js |  467 ++
+ client/jasmine-master/spec/core/QueueRunnerSpec.js |  764 ++
+ .../spec/core/ReportDispatcherSpec.js              |  178 +
+ client/jasmine-master/spec/core/SpecSpec.js        |  492 ++
+ client/jasmine-master/spec/core/SpyRegistrySpec.js |  576 ++
+ client/jasmine-master/spec/core/SpySpec.js         |  253 +
+ client/jasmine-master/spec/core/SpyStrategySpec.js |  309 +
+ client/jasmine-master/spec/core/StackTraceSpec.js  |  216 +
+ client/jasmine-master/spec/core/SuiteSpec.js       |  141 +
+ client/jasmine-master/spec/core/TimerSpec.js       |   31 +
+ .../jasmine-master/spec/core/TreeProcessorSpec.js  |  915 +++
+ client/jasmine-master/spec/core/UserContextSpec.js |   53 +
+ client/jasmine-master/spec/core/UtilSpec.js        |  205 +
+ .../spec/core/asymmetric_equality/AnySpec.js       |   91 +
+ .../spec/core/asymmetric_equality/AnythingSpec.js  |   76 +
+ .../asymmetric_equality/ArrayContainingSpec.js     |   52 +
+ .../ArrayWithExactContentsSpec.js                  |   47 +
+ .../spec/core/asymmetric_equality/EmptySpec.js     |   51 +
+ .../spec/core/asymmetric_equality/FalsySpec.js     |   38 +
+ .../spec/core/asymmetric_equality/NotEmptySpec.js  |   53 +
+ .../asymmetric_equality/ObjectContainingSpec.js    |   99 +
+ .../core/asymmetric_equality/StringMatchingSpec.js |   27 +
+ .../spec/core/asymmetric_equality/TruthySpec.js    |   63 +
+ client/jasmine-master/spec/core/baseSpec.js        |   33 +
+ .../jasmine-master/spec/core/formatErrorMsgSpec.js |   13 +
+ .../spec/core/integration/CustomMatchersSpec.js    |  200 +
+ .../core/integration/CustomSpyStrategiesSpec.js    |  138 +
+ .../spec/core/integration/EnvSpec.js               | 2524 +++++++
+ .../spec/core/integration/SpecRunningSpec.js       | 1128 +++
+ .../spec/core/matchers/DiffBuilderSpec.js          |   47 +
+ .../spec/core/matchers/NullDiffBuilderSpec.js      |   13 +
+ .../spec/core/matchers/ObjectPathSpec.js           |   43 +
+ .../spec/core/matchers/async/toBeRejectedSpec.js   |   23 +
+ .../matchers/async/toBeRejectedWithErrorSpec.js    |  141 +
+ .../core/matchers/async/toBeRejectedWithSpec.js    |   63 +
+ .../spec/core/matchers/async/toBeResolvedSpec.js   |   23 +
+ .../spec/core/matchers/async/toBeResolvedToSpec.js |   66 +
+ .../spec/core/matchers/matchersUtilSpec.js         |  645 ++
+ .../spec/core/matchers/nothingSpec.js              |    8 +
+ .../spec/core/matchers/toBeCloseToSpec.js          |  107 +
+ .../spec/core/matchers/toBeDefinedSpec.js          |   18 +
+ .../spec/core/matchers/toBeFalseSpec.js            |   25 +
+ .../spec/core/matchers/toBeFalsySpec.js            |   38 +
+ .../core/matchers/toBeGreaterThanOrEqualSpec.js    |   29 +
+ .../spec/core/matchers/toBeGreaterThanSpec.js      |   20 +
+ .../spec/core/matchers/toBeInstanceOfSpec.js       |  228 +
+ .../spec/core/matchers/toBeLessThanOrEqualSpec.js  |   29 +
+ .../spec/core/matchers/toBeLessThanSpec.js         |   20 +
+ .../spec/core/matchers/toBeNaNSpec.js              |   37 +
+ .../spec/core/matchers/toBeNegativeInfinitySpec.js |   31 +
+ .../spec/core/matchers/toBeNullSpec.js             |   17 +
+ .../spec/core/matchers/toBePositiveInfinitySpec.js |   31 +
+ .../jasmine-master/spec/core/matchers/toBeSpec.js  |   56 +
+ .../spec/core/matchers/toBeTrueSpec.js             |   17 +
+ .../spec/core/matchers/toBeTruthySpec.js           |   38 +
+ .../spec/core/matchers/toBeUndefinedSpec.js        |   18 +
+ .../spec/core/matchers/toContainSpec.js            |   26 +
+ .../spec/core/matchers/toEqualSpec.js              |  938 +++
+ .../core/matchers/toHaveBeenCalledBeforeSpec.js    |   99 +
+ .../spec/core/matchers/toHaveBeenCalledSpec.js     |   47 +
+ .../core/matchers/toHaveBeenCalledTimesSpec.js     |   86 +
+ .../spec/core/matchers/toHaveBeenCalledWithSpec.js |   67 +
+ .../spec/core/matchers/toHaveClassSpec.js          |   61 +
+ .../spec/core/matchers/toMatchSpec.js              |   43 +
+ .../spec/core/matchers/toThrowErrorSpec.js         |  315 +
+ .../spec/core/matchers/toThrowMatchingSpec.js      |   73 +
+ .../spec/core/matchers/toThrowSpec.js              |  100 +
+ client/jasmine-master/spec/helpers/BrowserFlags.js |   16 +
+ client/jasmine-master/spec/helpers/asyncAwait.js   |   26 +
+ client/jasmine-master/spec/helpers/checkForMap.js  |   46 +
+ client/jasmine-master/spec/helpers/checkForSet.js  |   50 +
+ .../jasmine-master/spec/helpers/checkForSymbol.js  |   27 +
+ .../spec/helpers/checkForTypedArrays.js            |   23 +
+ .../spec/helpers/defineJasmineUnderTest.js         |    6 +
+ .../spec/helpers/integrationMatchers.js            |   57 +
+ .../spec/helpers/nodeDefineJasmineUnderTest.js     |   28 +
+ client/jasmine-master/spec/helpers/promises.js     |    7 +
+ .../jasmine-master/spec/html/HtmlReporterSpec.js   | 1566 ++++
+ .../jasmine-master/spec/html/HtmlSpecFilterSpec.js |   19 +
+ .../jasmine-master/spec/html/MatchersHtmlSpec.js   |   36 +
+ .../spec/html/PrettyPrintHtmlSpec.js               |   43 +
+ client/jasmine-master/spec/html/QueryStringSpec.js |   80 +
+ client/jasmine-master/spec/html/ResultsNodeSpec.js |   62 +
+ .../spec/html/SpyRegistryHtmlSpec.js               |   41 +
+ .../support/jasmine_selenium_runner.yml            |   17 +
+ .../spec/npmPackage/npmPackageSpec.js              |  102 +
+ .../spec/performance/large_object_test.js          |   34 +
+ .../spec/performance/performance_test.js           |   10 +
+ client/jasmine-master/spec/support/index.html.ejs  |   12 +
+ .../spec/support/jasmine-performance.json          |   10 +
+ .../spec/support/jasmine-performance.yml           |   10 +
+ client/jasmine-master/spec/support/jasmine.json    |   18 +
+ client/jasmine-master/spec/support/jasmine.yml     |   35 +
+ .../jasmine-master/spec/support/jasmine_helper.rb  |    3 +
+ client/jasmine-master/src/core/CallTracker.js      |  113 +
+ client/jasmine-master/src/core/ClearStack.js       |   69 +
+ client/jasmine-master/src/core/Clock.js            |  223 +
+ .../src/core/DelayedFunctionScheduler.js           |  178 +
+ client/jasmine-master/src/core/Env.js              | 1074 +++
+ .../jasmine-master/src/core/ExceptionFormatter.js  |  101 +
+ client/jasmine-master/src/core/Expectation.js      |  195 +
+ .../src/core/ExpectationFilterChain.js             |   51 +
+ .../jasmine-master/src/core/ExpectationResult.js   |   65 +
+ client/jasmine-master/src/core/Expector.js         |   95 +
+ client/jasmine-master/src/core/GlobalErrors.js     |   82 +
+ client/jasmine-master/src/core/JsApiReporter.js    |  123 +
+ client/jasmine-master/src/core/MockDate.js         |  105 +
+ client/jasmine-master/src/core/Order.js            |   45 +
+ client/jasmine-master/src/core/PrettyPrinter.js    |  359 +
+ client/jasmine-master/src/core/QueueRunner.js      |  210 +
+ client/jasmine-master/src/core/ReportDispatcher.js |   74 +
+ client/jasmine-master/src/core/Spec.js             |  223 +
+ client/jasmine-master/src/core/Spy.js              |  200 +
+ client/jasmine-master/src/core/SpyFactory.js       |   45 +
+ client/jasmine-master/src/core/SpyRegistry.js      |  213 +
+ client/jasmine-master/src/core/SpyStrategy.js      |  181 +
+ client/jasmine-master/src/core/StackTrace.js       |  124 +
+ client/jasmine-master/src/core/Suite.js            |  193 +
+ client/jasmine-master/src/core/Timer.js            |   33 +
+ client/jasmine-master/src/core/TreeProcessor.js    |  250 +
+ client/jasmine-master/src/core/UserContext.js      |   17 +
+ .../src/core/asymmetric_equality/Any.js            |   49 +
+ .../src/core/asymmetric_equality/Anything.js       |   14 +
+ .../core/asymmetric_equality/ArrayContaining.js    |   26 +
+ .../asymmetric_equality/ArrayWithExactContents.js  |   31 +
+ .../src/core/asymmetric_equality/Empty.js          |   25 +
+ .../src/core/asymmetric_equality/Falsy.js          |   14 +
+ .../src/core/asymmetric_equality/NotEmpty.js       |   26 +
+ .../core/asymmetric_equality/ObjectContaining.js   |   49 +
+ .../src/core/asymmetric_equality/StringMatching.js |   20 +
+ .../src/core/asymmetric_equality/Truthy.js         |   14 +
+ client/jasmine-master/src/core/base.js             |  276 +
+ client/jasmine-master/src/core/errors.js           |   10 +
+ client/jasmine-master/src/core/formatErrorMsg.js   |   11 +
+ .../src/core/matchers/DiffBuilder.js               |   33 +
+ .../src/core/matchers/NullDiffBuilder.js           |   10 +
+ .../jasmine-master/src/core/matchers/ObjectPath.js |   47 +
+ .../src/core/matchers/async/toBeRejected.js        |   22 +
+ .../src/core/matchers/async/toBeRejectedWith.js    |   46 +
+ .../core/matchers/async/toBeRejectedWithError.js   |   88 +
+ .../src/core/matchers/async/toBeResolved.js        |   22 +
+ .../src/core/matchers/async/toBeResolvedTo.js      |   46 +
+ .../src/core/matchers/matchersUtil.js              |  470 ++
+ client/jasmine-master/src/core/matchers/nothing.js |   20 +
+ .../src/core/matchers/requireAsyncMatchers.js      |   17 +
+ .../src/core/matchers/requireMatchers.js           |   41 +
+ client/jasmine-master/src/core/matchers/toBe.js    |   29 +
+ .../src/core/matchers/toBeCloseTo.js               |   36 +
+ .../src/core/matchers/toBeDefined.js               |   20 +
+ .../jasmine-master/src/core/matchers/toBeFalse.js  |   20 +
+ .../jasmine-master/src/core/matchers/toBeFalsy.js  |   20 +
+ .../src/core/matchers/toBeGreaterThan.js           |   22 +
+ .../src/core/matchers/toBeGreaterThanOrEqual.js    |   21 +
+ .../src/core/matchers/toBeInstanceOf.js            |   45 +
+ .../src/core/matchers/toBeLessThan.js              |   22 +
+ .../src/core/matchers/toBeLessThanOrEqual.js       |   22 +
+ client/jasmine-master/src/core/matchers/toBeNaN.js |   28 +
+ .../src/core/matchers/toBeNegativeInfinity.js      |   28 +
+ .../jasmine-master/src/core/matchers/toBeNull.js   |   20 +
+ .../src/core/matchers/toBePositiveInfinity.js      |   28 +
+ .../jasmine-master/src/core/matchers/toBeTrue.js   |   20 +
+ .../jasmine-master/src/core/matchers/toBeTruthy.js |   20 +
+ .../src/core/matchers/toBeUndefined.js             |   20 +
+ .../jasmine-master/src/core/matchers/toContain.js  |   25 +
+ client/jasmine-master/src/core/matchers/toEqual.js |   31 +
+ .../src/core/matchers/toHaveBeenCalled.js          |   38 +
+ .../src/core/matchers/toHaveBeenCalledBefore.js    |   60 +
+ .../src/core/matchers/toHaveBeenCalledTimes.js     |   40 +
+ .../src/core/matchers/toHaveBeenCalledWith.js      |   43 +
+ .../src/core/matchers/toHaveClass.js               |   33 +
+ client/jasmine-master/src/core/matchers/toMatch.js |   31 +
+ client/jasmine-master/src/core/matchers/toThrow.js |   57 +
+ .../src/core/matchers/toThrowError.js              |  166 +
+ .../src/core/matchers/toThrowMatching.js           |   68 +
+ client/jasmine-master/src/core/requireCore.js      |   90 +
+ client/jasmine-master/src/core/requireInterface.js |  334 +
+ client/jasmine-master/src/core/util.js             |  137 +
+ client/jasmine-master/src/html/HtmlReporter.js     |  681 ++
+ client/jasmine-master/src/html/HtmlSpecFilter.js   |   15 +
+ client/jasmine-master/src/html/QueryString.js      |   54 +
+ client/jasmine-master/src/html/ResultsNode.js      |   23 +
+ client/jasmine-master/src/html/_HTMLReporter.scss  |  388 +
+ client/jasmine-master/src/html/jasmine.scss        |    1 +
+ client/jasmine-master/src/html/requireHtml.js      |    6 +
+ .../example_project_jasmine_tags.html.erb          |    3 +
+ client/jasmine-master/src/templates/version.js.erb |    7 +
+ client/jasmine-master/src/templates/version.rb.erb |    6 +
+ client/jasmine-master/src/version.js               |    3 +
+ client/jasmine-master/travis-core-script.sh        |   12 +
+ client/js/.DS_Store                                |  Bin 0 -> 6148 bytes
+ client/js/app.js                                   |  121 +-
+ client/js/controllers/patients-controller.js       |   48 -
+ client/js/patients/AddPatientController.js         |   31 +
+ client/js/patients/EditPatientController.js        |   48 +
+ client/js/patients/PatientsController.js           |   65 +
+ client/js/services/.DS_Store                       |  Bin 0 -> 6148 bytes
+ client/js/services/PatientsResource.js             |   15 +
+ client/js/services/badgeService.js                 |   28 +
+ client/js/services/constantService.js              |   11 +
+ client/js/services/currentUser.js                  |   17 +
+ client/js/services/dataService.js                  |  257 +
+ client/js/services/loggerService.js                |   23 +
+ client/js/services/patientLoggerInterceptor.js     |   33 +
+ client/js/templates/addPatient.html                |   66 +
+ client/js/templates/editPatient.html               |   65 +
+ client/js/templates/patients.html                  |   24 +
+ client/lib/images/__init__.py                      |    0
+ client/lib/images/jasmine-horizontal.png           |  Bin 0 -> 1714 bytes
+ client/lib/images/jasmine-horizontal.svg           |  102 +
+ client/lib/images/jasmine_favicon.png              |  Bin 0 -> 1486 bytes
+ client/lib/jasmine-core.js                         |   37 +
+ client/lib/jasmine-core.rb                         |   53 +
+ client/lib/jasmine-core/__init__.py                |    1 +
+ client/lib/jasmine-core/boot.js                    |  158 +
+ client/lib/jasmine-core/boot/boot.js               |  136 +
+ client/lib/jasmine-core/boot/node_boot.js          |   16 +
+ client/lib/jasmine-core/core.py                    |   60 +
+ .../node_example/lib/jasmine_examples/Player.js    |   24 +
+ .../node_example/lib/jasmine_examples/Song.js      |    9 +
+ .../spec/helpers/jasmine_examples/SpecHelper.js    |   15 +
+ .../spec/jasmine_examples/PlayerSpec.js            |   60 +
+ client/lib/jasmine-core/example/spec/PlayerSpec.js |   58 +
+ client/lib/jasmine-core/example/spec/SpecHelper.js |   15 +
+ client/lib/jasmine-core/example/src/Player.js      |   22 +
+ client/lib/jasmine-core/example/src/Song.js        |    7 +
+ client/lib/jasmine-core/jasmine-html.js            |  805 ++
+ client/lib/jasmine-core/jasmine.css                |  128 +
+ client/lib/jasmine-core/jasmine.js                 | 7750 ++++++++++++++++++++
+ client/lib/jasmine-core/json2.js                   |  489 ++
+ client/lib/jasmine-core/node_boot.js               |   38 +
+ client/lib/jasmine-core/version.rb                 |    9 +
+ client/lib/spec/core/AsyncExpectationSpec.js       |  241 +
+ client/lib/spec/core/CallTrackerSpec.js            |  132 +
+ client/lib/spec/core/ClearStackSpec.js             |  166 +
+ client/lib/spec/core/ClockSpec.js                  | 1040 +++
+ .../lib/spec/core/DelayedFunctionSchedulerSpec.js  |  281 +
+ client/lib/spec/core/EnvSpec.js                    |  298 +
+ client/lib/spec/core/ExceptionFormatterSpec.js     |  198 +
+ client/lib/spec/core/ExceptionsSpec.js             |   51 +
+ client/lib/spec/core/ExpectationFilterChainSpec.js |  123 +
+ client/lib/spec/core/ExpectationResultSpec.js      |   93 +
+ client/lib/spec/core/ExpectationSpec.js            |  686 ++
+ client/lib/spec/core/GlobalErrorsSpec.js           |  176 +
+ client/lib/spec/core/JsApiReporterSpec.js          |  256 +
+ client/lib/spec/core/MockDateSpec.js               |  204 +
+ client/lib/spec/core/PrettyPrintSpec.js            |  467 ++
+ client/lib/spec/core/QueueRunnerSpec.js            |  764 ++
+ client/lib/spec/core/ReportDispatcherSpec.js       |  178 +
+ client/lib/spec/core/SpecSpec.js                   |  492 ++
+ client/lib/spec/core/SpyRegistrySpec.js            |  576 ++
+ client/lib/spec/core/SpySpec.js                    |  253 +
+ client/lib/spec/core/SpyStrategySpec.js            |  309 +
+ client/lib/spec/core/StackTraceSpec.js             |  216 +
+ client/lib/spec/core/SuiteSpec.js                  |  141 +
+ client/lib/spec/core/TimerSpec.js                  |   31 +
+ client/lib/spec/core/TreeProcessorSpec.js          |  915 +++
+ client/lib/spec/core/UserContextSpec.js            |   53 +
+ client/lib/spec/core/UtilSpec.js                   |  205 +
+ .../lib/spec/core/asymmetric_equality/AnySpec.js   |   91 +
+ .../spec/core/asymmetric_equality/AnythingSpec.js  |   76 +
+ .../asymmetric_equality/ArrayContainingSpec.js     |   52 +
+ .../ArrayWithExactContentsSpec.js                  |   47 +
+ .../lib/spec/core/asymmetric_equality/EmptySpec.js |   51 +
+ .../lib/spec/core/asymmetric_equality/FalsySpec.js |   38 +
+ .../spec/core/asymmetric_equality/NotEmptySpec.js  |   53 +
+ .../asymmetric_equality/ObjectContainingSpec.js    |   99 +
+ .../core/asymmetric_equality/StringMatchingSpec.js |   27 +
+ .../spec/core/asymmetric_equality/TruthySpec.js    |   63 +
+ client/lib/spec/core/baseSpec.js                   |   33 +
+ client/lib/spec/core/formatErrorMsgSpec.js         |   13 +
+ .../spec/core/integration/CustomMatchersSpec.js    |  200 +
+ .../core/integration/CustomSpyStrategiesSpec.js    |  138 +
+ client/lib/spec/core/integration/EnvSpec.js        | 2524 +++++++
+ .../lib/spec/core/integration/SpecRunningSpec.js   | 1128 +++
+ client/lib/spec/core/matchers/DiffBuilderSpec.js   |   47 +
+ .../lib/spec/core/matchers/NullDiffBuilderSpec.js  |   13 +
+ client/lib/spec/core/matchers/ObjectPathSpec.js    |   43 +
+ .../spec/core/matchers/async/toBeRejectedSpec.js   |   23 +
+ .../matchers/async/toBeRejectedWithErrorSpec.js    |  141 +
+ .../core/matchers/async/toBeRejectedWithSpec.js    |   63 +
+ .../spec/core/matchers/async/toBeResolvedSpec.js   |   23 +
+ .../spec/core/matchers/async/toBeResolvedToSpec.js |   66 +
+ client/lib/spec/core/matchers/matchersUtilSpec.js  |  645 ++
+ client/lib/spec/core/matchers/nothingSpec.js       |    8 +
+ client/lib/spec/core/matchers/toBeCloseToSpec.js   |  107 +
+ client/lib/spec/core/matchers/toBeDefinedSpec.js   |   18 +
+ client/lib/spec/core/matchers/toBeFalseSpec.js     |   25 +
+ client/lib/spec/core/matchers/toBeFalsySpec.js     |   38 +
+ .../core/matchers/toBeGreaterThanOrEqualSpec.js    |   29 +
+ .../lib/spec/core/matchers/toBeGreaterThanSpec.js  |   20 +
+ .../lib/spec/core/matchers/toBeInstanceOfSpec.js   |  228 +
+ .../spec/core/matchers/toBeLessThanOrEqualSpec.js  |   29 +
+ client/lib/spec/core/matchers/toBeLessThanSpec.js  |   20 +
+ client/lib/spec/core/matchers/toBeNaNSpec.js       |   37 +
+ .../spec/core/matchers/toBeNegativeInfinitySpec.js |   31 +
+ client/lib/spec/core/matchers/toBeNullSpec.js      |   17 +
+ .../spec/core/matchers/toBePositiveInfinitySpec.js |   31 +
+ client/lib/spec/core/matchers/toBeSpec.js          |   56 +
+ client/lib/spec/core/matchers/toBeTrueSpec.js      |   17 +
+ client/lib/spec/core/matchers/toBeTruthySpec.js    |   38 +
+ client/lib/spec/core/matchers/toBeUndefinedSpec.js |   18 +
+ client/lib/spec/core/matchers/toContainSpec.js     |   26 +
+ client/lib/spec/core/matchers/toEqualSpec.js       |  938 +++
+ .../core/matchers/toHaveBeenCalledBeforeSpec.js    |   99 +
+ .../lib/spec/core/matchers/toHaveBeenCalledSpec.js |   47 +
+ .../core/matchers/toHaveBeenCalledTimesSpec.js     |   86 +
+ .../spec/core/matchers/toHaveBeenCalledWithSpec.js |   67 +
+ client/lib/spec/core/matchers/toHaveClassSpec.js   |   61 +
+ client/lib/spec/core/matchers/toMatchSpec.js       |   43 +
+ client/lib/spec/core/matchers/toThrowErrorSpec.js  |  315 +
+ .../lib/spec/core/matchers/toThrowMatchingSpec.js  |   73 +
+ client/lib/spec/core/matchers/toThrowSpec.js       |  100 +
+ client/lib/spec/helpers/BrowserFlags.js            |   16 +
+ client/lib/spec/helpers/asyncAwait.js              |   26 +
+ client/lib/spec/helpers/checkForMap.js             |   46 +
+ client/lib/spec/helpers/checkForSet.js             |   50 +
+ client/lib/spec/helpers/checkForSymbol.js          |   27 +
+ client/lib/spec/helpers/checkForTypedArrays.js     |   23 +
+ client/lib/spec/helpers/defineJasmineUnderTest.js  |    6 +
+ client/lib/spec/helpers/integrationMatchers.js     |   57 +
+ .../lib/spec/helpers/nodeDefineJasmineUnderTest.js |   28 +
+ client/lib/spec/helpers/promises.js                |    7 +
+ client/lib/spec/html/HtmlReporterSpec.js           | 1566 ++++
+ client/lib/spec/html/HtmlSpecFilterSpec.js         |   19 +
+ client/lib/spec/html/MatchersHtmlSpec.js           |   36 +
+ client/lib/spec/html/PrettyPrintHtmlSpec.js        |   43 +
+ client/lib/spec/html/QueryStringSpec.js            |   80 +
+ client/lib/spec/html/ResultsNodeSpec.js            |   62 +
+ client/lib/spec/html/SpyRegistryHtmlSpec.js        |   41 +
+ .../support/jasmine_selenium_runner.yml            |   17 +
+ client/lib/spec/npmPackage/npmPackageSpec.js       |  102 +
+ client/lib/spec/performance/large_object_test.js   |   34 +
+ client/lib/spec/performance/performance_test.js    |   10 +
+ client/lib/spec/support/index.html.ejs             |   12 +
+ client/lib/spec/support/jasmine-performance.json   |   10 +
+ client/lib/spec/support/jasmine-performance.yml    |   10 +
+ client/lib/spec/support/jasmine.json               |   18 +
+ client/lib/spec/support/jasmine.yml                |   35 +
+ client/lib/spec/support/jasmine_helper.rb          |    3 +
+ karma.conf.js                                      |   75 +
+ package-lock.json                                  | 5014 +++++++++++--
+ package.json                                       |   27 +-
+ server.js                                          |   76 +-
+ server/controllers/patients-controller.js          |   14 -
+ server/data/patients.json                          |   31 +-
+ server/data/readers.json                           |   20 +
+ server/models/patient.js                           |    5 -
+ server/routes/index.js                             |    9 +
+ server/routes/patients.js                          |  132 +
+ server/routes/readers.js                           |  125 +
+ server/views/error.jade                            |    6 +
+ server/views/index.jade                            |    5 +
+ server/views/layout.jade                           |    6 +
+ 472 files changed, 76561 insertions(+), 546 deletions(-)
+
+commit e3ddb0d142903dfb9349e29d5c82de16c258d387
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Fri May 31 14:37:44 2019 -0600
+
+    created local dataSource for testing, deactivated mongoose
+
+ client/js/controllers/patients-controller.js | 31 ++++++++++++++--------------
+ 1 file changed, 16 insertions(+), 15 deletions(-)
+
+commit 6f1aa9bb8ff5db90e395257007d84b711f301bc2
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Thu May 30 00:27:11 2019 -0600
+
+    MEAN Patient Crud App start
+
+ .gitignore                                   |   1 +
+ client/index.html                            |  41 ++
+ client/js/app.js                             |   1 +
+ client/js/controllers/patients-controller.js |  47 +++
+ package-lock.json                            | 586 +++++++++++++++++++++++++++
+ package.json                                 |  11 +
+ server.js                                    |  22 +
+ server/controllers/patients-controller.js    |  14 +
+ server/data/patients.json                    |  20 +
+ server/models/patient.js                     |   5 +
+ 10 files changed, 748 insertions(+)
+
+commit df3e136f1431f6eba62d188ca9127f14336f0cf0
+Author: Thomas M. Maestas <thomasm1@users.noreply.github.com>
+Date:   Thu May 30 00:19:57 2019 -0600
+
+    Initial commit
+
+ README.md | 2 ++
+ 1 file changed, 2 insertions(+)

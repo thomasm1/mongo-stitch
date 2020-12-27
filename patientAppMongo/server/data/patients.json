@@ -1,0 +1,57 @@
+[
+    {
+        "patient_id": 1,
+        "name": "Thomas Maestas",
+        "age": 87,
+        "gender": "male",
+        "height": "60",
+        "dob": "2010-10-28",
+        "address": "2300 calle de real"
+    },
+    {
+        "patient_id": 2,
+        "name": "Sarah Braser",
+        "age": 78,
+        "gender": "female",
+        "email": "sue.grammar@gmail.com",
+        "height": "54",
+        "address": "2 Teal Dr."
+    },
+    {
+        "patient_id": 5,
+        "address": "j",
+        "name": "Henry Q Coder"
+    },
+    {
+        "patient_id": 6,
+        "name": "eeffffffff",
+        "gender": "w",
+        "height": "w",
+        "address": "2"
+    },
+    {
+        "patient_id": 10,
+        "name": "gg",
+        "gender": "gg"
+    },
+    {
+        "patient_id": 14,
+        "name": "aa"
+    },
+    {
+        "patient_id": 19,
+        "name": "aa"
+    },
+    {
+        "patient_id": 20,
+        "name": "f"
+    },
+    {
+        "patient_id": 21,
+        "name": "xx",
+        "gender": "m",
+        "email": "tm",
+        "height": "8'3''",
+        "address": "1 ert"
+    }
+]

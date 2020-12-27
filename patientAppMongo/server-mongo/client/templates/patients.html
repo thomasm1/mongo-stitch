@@ -1,0 +1,24 @@
+
+
+<h3 id="header2">Patient Listings</h3> 
+<code class="count" >
+        Total Patients:   {{ patients.summaryData.patientCount }}   
+</code>  
+    <ul>
+        <li ng-repeat="patient in patients.allPatients"> 
+            
+              <code>ID: {{patient.patient_id}}</code>&nbsp;&nbsp;Patient Name: 
+  <code class="home"> &nbsp;&nbsp;{{ patient.name }}</code>
+   <br />
+            <span class="pull-right"> 
+                <a id="editBtn" href="#/EditPatient/{{ patient.patient_id }}">Edit</a>&nbsp;&nbsp; | &nbsp;&nbsp;
+                <a href="" ng-click="patients.deletePatient(patient.patient_id)" href="">Delete</a></span>
+        </li>
+    </ul> 
+
+<div>
+</div>
+<span class="buttons">
+    <a id="addBtn" href="#/AddPatient">Add New Patient</a>&nbsp;&nbsp; | &nbsp;&nbsp;
+    <a href="#/EditPatient/{{ patients.currentUser.lastPatientEdited.patient_id }}">Open Last Edited</a> 
+</span><br /><br /> 

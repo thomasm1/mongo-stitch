@@ -1,0 +1,101 @@
+body {
+    padding: 20px;
+    background-color:aliceblue;
+
+    font-size:1.8rem;
+}
+h1,h2,h3,h4,h5,h6 {
+    text-align:center;
+}
+form {
+    background-color:aliceblue;
+    padding:5px;
+    margin-left:40px;
+    margin-right:40px;
+    border:1px solid orangered;
+    min-height:300px; 
+    }
+li {
+    list-style-type: none;
+    padding:10px;
+    margin:15px auto 15px auto;
+    border:solid 1px orangered;
+    min-height:80px;
+    max-width: 90%;
+}
+button {
+    color:steelblue;
+}
+input {
+    padding:3px;
+    margin:3px;
+    width: 100%;
+} 
+
+code.home {
+    font-size:1.8rem;
+    margin-left:80px;
+}
+code.count {
+    margin:0;
+    padding:0; 
+     transform: translateY(-100px) 
+}
+label.col-sm-3 {
+    text-align:left;
+}
+
+span {
+    text-align:left;
+    font-weight:bolder;
+    color:blue;
+}
+
+span.buttons {
+    margin-left:85px;
+} 
+
+.container {
+    padding:20px;
+    max-width:900px;
+    border:1px solid rgb(105, 33, 6);
+}
+
+.patient-list {
+    color:rgba(27, 46, 219);
+    border:1px solid orangered;
+    margin:4px;
+    padding:10px;
+    min-width:400px;
+    max-width:45%;
+    font-size:1.7rem;
+}
+.navigate {
+    margin:40px;
+
+}
+.id {
+    margin-left:2rem;
+}
+.table {
+    background-color:aliceblue; 
+}
+td {
+    float:left;
+}
+td span {
+    min-width:60px;
+}
+.col1, .col2 {
+    float:left;
+    max-width:50%;
+    margin:4px;
+    padding:4px;
+}
+
+.row2 {
+    width:100%;
+    float:left;
+    margin:4px;
+    padding:4px;
+}

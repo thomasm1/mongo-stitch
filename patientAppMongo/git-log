@@ -1,0 +1,125 @@
+commit 95424dcd671aafce261b1a05464b974f7dd33d6d
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Wed Oct 30 05:16:34 2019 -0600
+
+    update model, started deletion/routing, etc
+
+commit 151840be5667ac503783d60e894f98a12e9c849b
+Author: Thomas Maestas <thomasm1.maestas@gmail.com>
+Date:   Mon Jun 17 23:54:35 2019 -0600
+
+    removed 2nd mongo data; Added 4th API test
+
+commit 9617362e68a5be1e996b2ddf3564c7575fe554bc
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Thu Jun 6 21:28:08 2019 -0600
+
+    added mongo version to server-mongo
+
+commit a42dd95d1fa716391e957f1fbc4178aee5a4ecba
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Thu Jun 6 20:51:31 2019 -0600
+
+    include mongo server separately
+
+commit 25fd1f89d72d100050f2ca7d64cb29decec04b38
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Thu Jun 6 00:13:31 2019 -0600
+
+    fixed #1 add-patient; still troubleshoot #2 add
+
+commit d99c4fa6cd22898949568c1ea68c391fb4e7a225
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Wed Jun 5 23:04:29 2019 -0600
+
+    added mongo db; added admin/mgt view db toggle
+
+commit 14ef7c9dbd276c6f1177a1f1149691135873a634
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Wed Jun 5 19:56:54 2019 -0600
+
+    added protractor page objects; start registration
+
+commit 476e0792fed2a49537177bc21b09151d912380e1
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Tue Jun 4 19:22:08 2019 -0600
+
+    cli-side validation, all-patient details list
+
+commit d2ffc794a3d7c7be8417507c198695f1a5fdcfe9
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Tue Jun 4 18:48:39 2019 -0600
+
+    routing and login; all-patients details list
+
+commit 73025cefd48a1d4bed2d264671baaf2f939f06ae
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Tue Jun 4 17:45:55 2019 -0600
+
+    full version before paring
+
+commit 9845809a6883d27616a08a004534e17dd98fb071
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Mon Jun 3 00:24:12 2019 -0600
+
+    Removal of unnecessary functionality
+
+commit e1069eb3c734e81852091c1ddd8349cbcaf88a1d
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Sun Jun 2 19:35:28 2019 -0600
+
+    8 protractor tests checking 3 controllers - still more tests to come
+
+commit dfe2a52a7067dae87c256d268c1cf032a9fbd927
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Sun Jun 2 11:57:02 2019 -0600
+
+    start on protractor/karma fixes and coverage
+
+commit 38aa18b4fbee0be65f2ac649707647de0de5395b
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Sun Jun 2 00:04:05 2019 -0600
+
+    npm audit fix
+
+commit c81c7a2d0c87546c411513c4ebbfad3b37b3f240
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Sat Jun 1 23:52:25 2019 -0600
+
+    protractor tests, prep for page objects
+
+commit f1bc9bfeffeac9dc08f1a7c472da94dc7fee9c0d
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Sat Jun 1 22:24:21 2019 -0600
+
+    protractor patient.edit; controller unit test karma
+
+commit 363116aff506afc4730e88a018699825d4a624c8
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Sat Jun 1 03:22:55 2019 -0600
+
+    fixed dataService bug
+
+commit 465f2e5c9bb34a8772c82af94871d5fe6cfd7c70
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Sat Jun 1 03:03:50 2019 -0600
+
+    to patientTracker, added services, added testing env; protractor separated
+
+commit e3ddb0d142903dfb9349e29d5c82de16c258d387
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Fri May 31 14:37:44 2019 -0600
+
+    created local dataSource for testing, deactivated mongoose
+
+commit 6f1aa9bb8ff5db90e395257007d84b711f301bc2
+Author: thomas maestas <thomasm1.maestas@gmail.com>
+Date:   Thu May 30 00:27:11 2019 -0600
+
+    MEAN Patient Crud App start
+
+commit df3e136f1431f6eba62d188ca9127f14336f0cf0
+Author: Thomas M. Maestas <thomasm1@users.noreply.github.com>
+Date:   Thu May 30 00:19:57 2019 -0600
+
+    Initial commit

@@ -1,0 +1,7 @@
+# pack-refs with: peeled fully-peeled sorted 
+6d493545faca2883b39039c2b4ddbe7b67e6160d refs/remotes/origin/dependabot/npm_and_yarn/debug-4.1.1
+c6d216ab4069d55057c8fa3c73e56562b2a6acf1 refs/remotes/origin/dependabot/npm_and_yarn/mongodb-3.6.1
+54008cd2e69e146baccf69c3fe8178a7139acf6e refs/remotes/origin/dependabot/npm_and_yarn/mongoose-5.7.7
+054c1220035f00b372ec82bbd05864b015951d36 refs/remotes/origin/dependabot/npm_and_yarn/server-mongo/mongodb-3.6.1
+010b8f074f7253c9a09383de290c589806a6fb6b refs/remotes/origin/dependabot/npm_and_yarn/server-mongo/mongoose-5.7.7
+95424dcd671aafce261b1a05464b974f7dd33d6d refs/remotes/origin/master

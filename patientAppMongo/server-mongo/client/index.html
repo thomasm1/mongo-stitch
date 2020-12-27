@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Patient Tracker</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+ 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" >
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" ></script>
+<style>
+form {
+    background-color:aliceblue;
+    color:darkblue;
+    padding:5px;
+    margin:5px;
+    border:1px solid orangered;
+    min-height:300px;
+    max-width: 50%;
+    }
+li {
+    list-style-type: none;
+}
+
+input {
+    padding:3px;
+    margin:3px;
+    width: 100%;
+}
+.patient-list {
+    color:rgba(27, 46, 219);
+    border:1px solid orangered;
+    margin:4px;
+    padding:10px;
+    min-width:200px;
+    max-width:200px;
+    font-size:1.4rem;
+}
+.col1, .col2 {
+    float:left;
+    max-width:50%;
+    margin:4px;
+    padding:4px;
+}
+.row2 {
+    width:100%;
+    float:left;
+    margin:4px;
+    padding:4px;
+}
+span {
+    min-width:200px;
+    text-align:left;
+    font-weight:bolder;
+    color:blue;
+}
+.container {
+    padding:20px;
+    max-width:900px;
+    border:1px solid rgb(105, 33, 6);
+}
+.output {
+    
+    overflow-x:scroll;
+}
+</style>
+ 
+   <!-- <link rel='stylesheet' type='text/css' media='screen' href='/css/main.css'>-->
+</head>
+<body  ng-app="patientApp">
+
+    <div class="container">
+        <div class="PatientsCtrl" ng-controller="PatientsCtrl">
+            <h1>There are {{patients.length}} patients</h1>
+            
+                    <!-- <table>
+               <tr ng-repeat="patient in patients">
+                    <td><span>Patient Name: </span> {{ patient.name}}</td>
+                    <td><span>Patient Age: </span>  {{ patient.age }}</td>
+                    <td>    <span>Patient Gender: </span>  {{ patient.gender }}</td>
+                    <td>  <span>Patient Email: </span> {{ patient.email }}</td>
+                    <td> <span>Patient Height: </span> {{ patient.height }}</td>
+                    <td>  <span>Patient Date of Birth: </span> {{patient.dob}}</td>
+                    <td>  <span>Patient : Address</span>  {{ patient.address }}</td>  
+                    <td><button class="btn btn-danger" ng-click="remove(patient._id)">Remove</button></td>
+                    </table> -->
+
+                </tr>
+                <hr>
+            <div class="output">
+                    <table>
+                            <tr>
+                        <td class="patient-list" ng-repeat="patient in patients | reverse">
+                           <span>Patient Name: </span> {{patient.name}}<br />
+                           <span>Patient Age: </span>  {{patient.age}}<br />
+                           <span>Patient Gender: </span>  {{patient.gender}}<br />
+                           <span>Patient Email: </span> {{patient.email}}<br />
+                           <span>Patient Height: </span>  {{patient.height}}<br />
+                           <span>Patient Date of Birth: </span>  {{patient.dob}}<br />
+                           <span>Patient : Address</span> {{patient.address}}<br /> 
+                           <button class="btn btn-danger" ng-click="remove(patient._id)">Remove</button>
+                        </td>
+                    </tr> 
+                    </table>
+                <hr>
+             
+                </div>
+                <div "input">
+<h3>Edit Patient</h3>
+ 
+                <form >
+                  <div class="col1">
+                    <input type="text" placeholder="Patient Name" ng-model="patientName"><br />
+                    <input type="number" placeholder="Patient Age" ng-model="patientAge"><br />
+                    <input type="text" placeholder="Patient Gender" ng-model="patientGender"><br />
+                  </div>
+                  <div class="col2">
+                    <input type="email" placeholder="Patient Email" ng-model="patientEmail"><br />
+                    <input type="text" placeholder="Patient Height" ng-model="patientHeight"><br />
+                    <input type="text" placeholder="Patient DOB" ng-model="patientDob"><br />
+                    <input type="text-box" placeholder="Patient Address" ng-model="patientAddress"><br />
+                  </div>
+                   <div class="row2">
+                    <button ng-click="createPatient()">Add</button>
+                    <button ng-href="#" >Cancel</button>
+                    <button ng-click="deleteLastPatient()">Delete</button>
+                   </div>
+                </form>
+            </div>
+        </div> 
+        </div> <!--container end-->
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js'></script> 
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-resource.min.js'></script> 
+   
+
+    <script src='js/app.js'></script>
+    <script src='js/controllers/patients-controller.js'></script> 
+    <!-- <script src='js/controllers/patients-details-controller.js'></script>   -->
+</body>
+</html>

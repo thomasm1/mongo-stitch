@@ -1,0 +1,33 @@
+
+<button  class="btn btn-small btn-deftault pull-left" ng-click="toggle()">Toggle View</button></small>
+<code>{{!administration?' &nbsp;DB Type: Node.js file storage&nbsp;':'&nbsp;DB Type: Mongo&nbsp;'}}</code>
+<div class="table" ng-if="!administration">  
+<h4>{{!administration?'Management Portal':'Administration Portal'}}</h4>  
+<table>
+<tr>
+    <td class="pull-clear patient-list" ng-repeat="patient in patients.allPatients">
+  <code>Patient ID: {{patient.patient_id}}</code>
+ <a   href="#/EditPatient/{{ patient.patient_id }}">Edit</a></a><br /> <br />
+        <span>Patient Name: </span> {{patient.name}}<br />
+        <span>Patient Age: </span>  {{patient.age}}<br />
+        <span>Patient Gender: </span>  {{patient.gender}}<br />
+        <span>Patient Email: </span> {{patient.email}}<br />
+        <span>Patient Height: </span>  {{patient.height}}<br />
+        <span>Patient Date of Birth: </span>  {{patient.dob}}<br />
+        <span>Patient : Address</span> {{patient.address}}<br /> 
+    </td>
+</tr> 
+</table>
+<code>
+
+<small>READ: var data = fs.readFileSync(datafile, 'utf8');  <br />
+    WRITE/UPDATE:  fs.writeFile(datafile, JSON.stringify(data, null, 4), function (err) </small> 
+    </code>
+</div> 
+
+<div class="table" ng-if="administration"> 
+<h4>{{!administration?'Management Portal':'Administration Portal'}}</h4>  
+ 
+<hr>
+<h4>{{!administration?'Management Portal':'Administration Portal'}} ADMIN VIEW</h4>  
+</div>

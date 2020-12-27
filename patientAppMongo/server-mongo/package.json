@@ -1,0 +1,26 @@
+{
+    "name": "patient-registry",
+    "auther": "Thomas Milton Maestas",
+    "version": "0.0.1",
+    "scripts": {
+        "test": "karma start karma.conf.js",
+        "jasmine": "jasmine"
+    },
+    "dependencies": {
+        "body-parser": "^1.2.2",
+        "express": "^4.3.1",
+        "mongodb": "^2.1.16",
+        "mongoose": "^4.4.12"
+    },
+    "devDependencies": {
+        "angular": "^1.7.8",
+        "angular-mocks": "^1.7.8",
+        "angular-resource": "^1.7.8",
+        "karma": "^4.1.0",
+        "karma-chrome-launcher": "^2.2.0",
+        "karma-firefox-launcher": "^1.1.0",
+        "karma-jasmine": "^2.0.1",
+        "karma-phantomjs-launcher": "^1.0.4",
+        "phantomjs": "^2.1.7"
+    }
+}
